@@ -28,7 +28,36 @@ Research-grade multi-class intracranial hemorrhage CT segmentation on BHSD (`lab
 
 Locked-test macro Dice: MONAI **0.257** · nnU-Net **0.455** (same 29 test cases).
 
-## Quick install
+## Run with Docker (recommended for sharing)
+
+Requires [Docker Desktop](https://www.docker.com/products/docker-desktop/) (or Docker Engine + Compose).
+
+```powershell
+git clone https://github.com/GuptaFalguni/BrainHemorrhageAI.git
+cd BrainHemorrhageAI
+docker compose up --build
+```
+
+Then open **http://localhost:3000** — upload a CT (`.nii` / `.nii.gz`), choose MONAI / nnU-Net / Compare, Analyze.
+
+| Port | Service |
+|------|---------|
+| 3000 | Next.js SPA |
+| 8000 | FastAPI (`/api/v1/...`) |
+
+**Weights:** not in git. On first API start the container downloads `model-weights-v1.tar.gz` from the [v1.0.0 release](https://github.com/GuptaFalguni/BrainHemorrhageAI/releases/tag/v1.0.0) (~0.7 GB) into a Docker volume. Restart reuses the volume.
+
+**Notes**
+
+- Research software — not for clinical use.
+- MONAI is suitable for demos (~tens of seconds/case on CPU).
+- nnU-Net on CPU is slow (often several minutes per case).
+- Override download URL: `WEIGHTS_URL=... docker compose up`
+- Local weights instead of download: bind-mount `./checkpoints` (see comments in `docker-compose.yml`).
+
+Maintainer: package weights with `.\scripts\package_weights.ps1` then attach to a GitHub Release.
+
+## Quick install (local, without Docker)
 
 ```powershell
 python -m venv .venv
@@ -46,7 +75,7 @@ npm install
 npm run dev -- -p 3000
 ```
 
-## Quick API + UI
+## Quick API + UI (local)
 
 ```powershell
 # Terminal 1 — API

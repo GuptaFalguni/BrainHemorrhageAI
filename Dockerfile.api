@@ -1,0 +1,32 @@
+# BrainHemorrhageAI API — CPU inference (MONAI + nnU-Net)
+FROM python:3.11-slim-bookworm
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    APP_ROOT=/app \
+    PYTHONPATH=/app/src \
+    WEIGHTS_URL=https://github.com/GuptaFalguni/BrainHemorrhageAI/releases/download/v1.0.0/model-weights-v1.tar.gz
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    build-essential \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY pyproject.toml README.md LICENSE ./
+COPY config ./config
+COPY src ./src
+COPY docker/api-entrypoint.sh /usr/local/bin/api-entrypoint.sh
+
+RUN chmod +x /usr/local/bin/api-entrypoint.sh \
+    && pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu \
+    && pip install --no-cache-dir -e ".[api,nnunet]"
+
+EXPOSE 8000
+
+ENTRYPOINT ["/usr/local/bin/api-entrypoint.sh"]
+CMD ["uvicorn", "api.v1.app:app", "--host", "0.0.0.0", "--port", "8000"]
