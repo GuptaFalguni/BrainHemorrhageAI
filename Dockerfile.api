@@ -21,7 +21,9 @@ COPY config ./config
 COPY src ./src
 COPY docker/api-entrypoint.sh /usr/local/bin/api-entrypoint.sh
 
-RUN chmod +x /usr/local/bin/api-entrypoint.sh \
+# Strip Windows CRLF if present (common after clone on Windows)
+RUN sed -i 's/\r$//' /usr/local/bin/api-entrypoint.sh \
+    && chmod +x /usr/local/bin/api-entrypoint.sh \
     && pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu \
     && pip install --no-cache-dir -e ".[api,nnunet]"
