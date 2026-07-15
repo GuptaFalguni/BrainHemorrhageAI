@@ -1,0 +1,26 @@
+# Version 1 intensity preprocessing — locked after literature review
+# See: docs/research/windowing_literature_review.md
+#
+# Primary citation: Wu et al., BHSD (arXiv:2308.11298), Section 3.0.2:
+#   truncate HU to [-40, 120]; normalize as (HU - 40) / 80
+#
+# window_level / window_width: radiological brain window reference (Chilamkurthy et al.,
+# RSNA ICH, PMC8377493). Active clipping uses clip_min / clip_max when both are set.
+#
+# train_mean / train_std: literature-fixed per BHSD (not empirical). Optional check:
+#   python src/preprocessing/compute_dataset_statistics.py
+
+window_level: 40
+window_width: 80
+clip_min: -40
+clip_max: 120
+
+normalization_method: zscore
+train_mean: 40
+train_std: 80
+
+# Disk cache — preprocess each volume once, reuse across slices/epochs/workers
+# Critical for Kaggle GPU runs (avoids re-preprocessing thrash with small RAM LRU)
+disk_cache_enabled: true
+disk_cache_dir: data/processed/volume_cache
+memory_cache_entries: 16

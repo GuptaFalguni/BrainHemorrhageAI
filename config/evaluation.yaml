@@ -1,0 +1,26 @@
+# Post-training baseline evaluation configuration
+# See: docs/architecture/evaluation_pipeline.md
+
+checkpoint_path: checkpoints/best_model.pt
+split: test
+
+training_config: config/training.yaml
+model_config: config/model.yaml
+preprocessing_config: config/preprocessing.yaml
+
+reports_dir: reports/evaluation
+run_id: null
+
+batch_size: 4
+num_workers: 0
+pin_memory: false
+device: auto
+mixed_precision: true
+
+save_predictions: true
+confidence_bins: 20
+top_k: 10
+
+# Optional limits for smoke tests (null = full split)
+max_batches: null
+max_scans: null

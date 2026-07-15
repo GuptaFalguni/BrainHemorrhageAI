@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: var(--font-ibm-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-disclaimer: var(--disclaimer);
+  --color-disclaimer-border: var(--disclaimer-border);
+  --color-disclaimer-foreground: var(--disclaimer-foreground);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+}
+
+:root {
+  --background: #f4f6f8;
+  --foreground: #0f1720;
+  --surface: #ffffff;
+  --surface-muted: #e8eef2;
+  --border: #d5dee6;
+  --border-strong: #a8b7c4;
+  --primary: #0e7490;
+  --primary-foreground: #ffffff;
+  --primary-hover: #0f766e;
+  --primary-subtle: #e0f2f1;
+  --success: #15803d;
+  --success-foreground: #ffffff;
+  --warning: #b45309;
+  --warning-foreground: #ffffff;
+  --danger: #b91c1c;
+  --danger-foreground: #ffffff;
+  --muted: #e8eef2;
+  --muted-foreground: #5b6b7c;
+  --accent: #e0f2f1;
+  --accent-foreground: #0f1720;
+  --ring: #22d3ee;
+  --card: #ffffff;
+  --card-foreground: #0f1720;
+  --disclaimer: #fef3c7;
+  --disclaimer-border: #f59e0b;
+  --disclaimer-foreground: #78350f;
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-border: rgb(15 23 32 / 0.08);
+}
+
+.dark {
+  --background: #050708;
+  --foreground: #eef3f7;
+  --surface: #0e1318;
+  --surface-muted: #151c23;
+  --border: #24303a;
+  --border-strong: #3a4a58;
+  --primary: #2dd4bf;
+  --primary-foreground: #042f2e;
+  --primary-hover: #5eead4;
+  --primary-subtle: #134e4a;
+  --success: #34d399;
+  --success-foreground: #052e16;
+  --warning: #fbbf24;
+  --warning-foreground: #1c1917;
+  --danger: #f87171;
+  --danger-foreground: #1c1917;
+  --muted: #151c23;
+  --muted-foreground: #94a3b4;
+  --accent: #134e4a;
+  --accent-foreground: #eef3f7;
+  --ring: #2dd4bf;
+  --card: #0e1318;
+  --card-foreground: #eef3f7;
+  --disclaimer: #292524;
+  --disclaimer-border: #a16207;
+  --disclaimer-foreground: #fde68a;
+  --glass: rgb(14 19 24 / 0.55);
+  --glass-border: rgb(255 255 255 / 0.08);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
+  }
+
+  .glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  }
+
+  .glass-strong {
+    background: color-mix(in oklab, var(--glass) 100%, var(--surface) 20%);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(28px) saturate(1.3);
+    -webkit-backdrop-filter: blur(28px) saturate(1.3);
+  }
+}

@@ -1,0 +1,44 @@
+# Experiment Registry — source of truth for trained runs
+# Metrics copied from locked evaluation reports only. Do not invent values.
+# See: docs/platform/phase_c_inference_platform.md
+
+experiments:
+  - experiment_id: experiment_best30h
+    model_type: monai_2d_unet
+    checkpoint_path: checkpoints/experiment_best30h/best_model.pt
+    config_path: config/experiments/experiment_best30h.yaml
+    dataset: BHSD_label_192
+    epochs: 45
+    framework: monai
+    metrics:
+      test_macro_dice: 0.257375
+      test_micro_dice: 0.385548
+      test_volume_error_mean_ml: 19.533
+      test_volume_error_median_ml: 4.909
+      val_macro_dice_at_best: 0.351169
+      best_checkpoint_epoch: 24
+      early_stop_epoch: 34
+      mean_study_confidence: 0.8107
+      evaluation_report: reports/evaluation/experiment_best30h_eval/evaluation_report.md
+      metrics_json: reports/evaluation/experiment_best30h_eval/metrics.json
+    publication_status: locked_baseline
+
+  - experiment_id: nnunet_dataset501_fold0
+    model_type: nnunet_3d_fullres
+    checkpoint_path: checkpoints/nnunet_dataset501_fold0/checkpoint_best.pth
+    config_path: config/nnunet.yaml
+    dataset: BHSD_label_192
+    epochs: 196
+    framework: nnunet
+    metrics:
+      test_macro_dice: 0.454723
+      test_micro_dice: 0.551281
+      test_volume_error_mean_ml: 14.3178
+      test_volume_error_median_ml: 3.7331
+      best_val_ema_pseudo_dice: 0.4791
+      best_ema_after_epoch: 184
+      mean_study_confidence: 0.9936
+      mean_inference_seconds_cpu: 327.64
+      evaluation_report: reports/evaluation/nnunet_dataset501_fold0_eval/evaluation_report.md
+      metrics_json: reports/evaluation/nnunet_dataset501_fold0_eval/metrics.json
+    publication_status: locked_comparator

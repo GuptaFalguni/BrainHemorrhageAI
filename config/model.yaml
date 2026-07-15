@@ -1,0 +1,19 @@
+# Version 1 baseline — MONAI 2D U-Net (2.5D input, 6-class output)
+# See: docs/architecture/model_design.md
+
+model_name: monai_2d_unet
+spatial_dims: 2
+
+in_channels: 3
+out_channels: 6
+
+# Shallow encoder (3 levels) for 192-scan dataset
+channels: [32, 64, 128, 256]
+strides: [2, 2, 2]
+
+kernel_size: 3
+num_res_units: 0
+
+dropout: 0.0
+activation: PRELU
+normalization: INSTANCE

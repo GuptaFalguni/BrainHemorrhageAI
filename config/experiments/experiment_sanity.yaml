@@ -1,0 +1,25 @@
+# Phase 5.0 — Baseline sanity experiment (2 epochs)
+# Does not overwrite experiment_001
+
+experiment_id: experiment_sanity
+description: Phase 5.0 baseline sanity check — verify pipeline learns before long training
+
+epochs: 2
+resume: false
+early_stopping_patience: 100
+validation_interval: 1
+save_every: 1
+
+run_id: experiment_sanity_train
+checkpoint_dir: checkpoints/experiment_sanity
+reports_dir: reports/training
+
+evaluation_run_id: experiment_sanity_eval
+evaluation_reports_dir: reports/evaluation
+
+experiment_output_dir: reports/experiments/experiment_sanity
+
+training_config: config/training.yaml
+model_config: config/model.yaml
+preprocessing_config: config/preprocessing.yaml
+evaluation_config: config/evaluation.yaml

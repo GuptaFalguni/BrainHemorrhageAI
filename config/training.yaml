@@ -1,0 +1,49 @@
+# Version 1 baseline training configuration
+# See: docs/architecture/training_pipeline_design.md
+
+# Optimization
+epochs: 150
+learning_rate: 0.0001
+weight_decay: 0.00001
+optimizer: adamw
+scheduler: cosine
+
+# Reproducibility
+seed: 42
+
+# DataLoader
+batch_size: 4
+num_workers: 0
+shuffle_train: true
+pin_memory: false
+persistent_workers: false
+
+# Training control
+early_stopping_patience: 20
+validation_interval: 1
+save_every: 1
+gradient_clip: 1.0
+
+# Precision and device
+mixed_precision: true
+device: auto
+
+# Loss (MONAI DiceCELoss)
+loss_name: dice_ce
+include_background: true
+lambda_dice: 1.0
+lambda_ce: 1.0
+
+# Checkpointing
+checkpoint_dir: checkpoints
+best_checkpoint_name: best_model.pt
+last_checkpoint_name: last_model.pt
+resume: true
+
+# Logging
+reports_dir: reports/training
+run_id: null
+
+# Config references (snapshotted into experiment logs)
+preprocessing_config: config/preprocessing.yaml
+model_config: config/model.yaml

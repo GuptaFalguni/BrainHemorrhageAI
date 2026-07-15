@@ -1,0 +1,51 @@
+# Kaggle / GPU training configuration for Version 1.0 long runs.
+# Derived from config/training.yaml — only device and DataLoader I/O settings differ.
+# See: docs/architecture/training_pipeline_design.md
+# See: docs/release/release_candidate_v1.md
+
+# Optimization (unchanged from training.yaml)
+epochs: 150
+learning_rate: 0.0001
+weight_decay: 0.00001
+optimizer: adamw
+scheduler: cosine
+
+# Reproducibility
+seed: 42
+
+# DataLoader — GPU-oriented I/O only
+batch_size: 4
+num_workers: 2
+shuffle_train: true
+pin_memory: true
+persistent_workers: true
+
+# Training control (unchanged)
+early_stopping_patience: 20
+validation_interval: 1
+save_every: 1
+gradient_clip: 1.0
+
+# Precision and device — CUDA on Kaggle
+mixed_precision: true
+device: cuda
+
+# Loss (MONAI DiceCELoss) — unchanged
+loss_name: dice_ce
+include_background: true
+lambda_dice: 1.0
+lambda_ce: 1.0
+
+# Checkpointing
+checkpoint_dir: checkpoints
+best_checkpoint_name: best_model.pt
+last_checkpoint_name: last_model.pt
+resume: true
+
+# Logging
+reports_dir: reports/training
+run_id: null
+
+# Config references
+preprocessing_config: config/preprocessing.yaml
+model_config: config/model.yaml

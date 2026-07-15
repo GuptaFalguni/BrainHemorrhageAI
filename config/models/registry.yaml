@@ -1,0 +1,50 @@
+# Model Registry — deployable models (references Experiment Registry)
+# See: docs/platform/phase_c_inference_platform.md
+# Categories: interactive | research
+
+models:
+  - model_id: monai_best30h
+    display_name: "MONAI 2.5D U-Net (best30h)"
+    experiment_id: experiment_best30h
+    category: interactive
+    framework: monai
+    version: "1.0"
+    default: true
+    description: "Locked Version 1 interactive baseline. MONAI 2D U-Net with 2.5D input."
+    paper: "Wu et al., BHSD, arXiv:2308.11298"
+    training_dataset: BHSD_label_192
+    macro_dice: 0.257375
+    volume_error_mean_ml: 19.533
+    speed: "CPU API demos ~19–22 s/case (reports/api prediction_summary.json)"
+    limitations: "EDH Dice ~0.011 on locked test; uncalibrated confidence; 2.5D context only."
+    recommended_use: "Interactive demo and engineering weak baseline."
+    model_card: docs/models/monai_best30h.md
+    supports_overlay: true
+    supports_volume: true
+    supports_confidence: true
+    supports_multiclass: true
+    supports_severity: true
+    supports_uncertainty: false
+
+  - model_id: nnunet_fold0
+    display_name: "nnU-Net 3D fullres (fold 0)"
+    experiment_id: nnunet_dataset501_fold0
+    category: research
+    framework: nnunet
+    version: "1.0"
+    default: false
+    description: "Locked research comparator. nnU-Net 3d_fullres fold 0 on the BHSD locked split."
+    paper: "Isensee et al., nnU-Net, Nature Methods 2021; BHSD Wu et al. arXiv:2308.11298"
+    training_dataset: BHSD_label_192
+    macro_dice: 0.454723
+    volume_error_mean_ml: 14.3178
+    speed: "CPU locked-test mean ~327.64 s/case (n=28 timed)"
+    limitations: "EDH Dice ~0.207; slow on CPU (~328 s/case locked-test mean); uncalibrated confidence; research category only."
+    recommended_use: "Research quality comparison and thesis primary segmentation model (API model_id=nnunet_fold0)."
+    model_card: docs/models/nnunet_fold0.md
+    supports_overlay: true
+    supports_volume: true
+    supports_confidence: true
+    supports_multiclass: true
+    supports_severity: true
+    supports_uncertainty: false

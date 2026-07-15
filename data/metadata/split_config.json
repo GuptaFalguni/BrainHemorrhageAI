@@ -1,0 +1,14 @@
+{
+  "split_ratio": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "random_seed": 42,
+  "stratification_method": "iterative_multi_label_stratification (MultilabelStratifiedShuffleSplit)",
+  "generation_timestamp": "2026-07-05T08:14:13.202749+00:00",
+  "total_scans": 192,
+  "train_count": 134,
+  "validation_count": 29,
+  "test_count": 29
+}

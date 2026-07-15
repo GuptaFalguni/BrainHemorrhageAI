@@ -1,0 +1,70 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Checkpoints and model weights (download/mount separately)
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+*.pkl
+*.joblib
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data — large medical volumes stay local only
+data/raw/
+data/processed/
+data/nnunet/
+
+# Version-controlled metadata (splits are tracked; other metadata outputs may be local)
+data/metadata/*
+!data/metadata/splits.csv
+!data/metadata/split_config.json
+!data/metadata/nnunet_splits_final.json
+
+# Environment / secrets (keep examples)
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# IDE / OS / agent clutter
+.vscode/
+.idea/
+.cursor/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Generated reports and experiment outputs
+reports/
+
+# Next.js (web/)
+web/node_modules/
+web/.next/
+web/out/
+web/coverage/
+web/.vercel/
+web/*.tsbuildinfo
+web/next-env.d.ts
+
+# Logs / temp
+*.log
+tmp/
+temp/
+*.tmp

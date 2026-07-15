@@ -1,0 +1,27 @@
+# Status: Deprecated
+# Reason: Replaced by experiment_best30h.
+# Historical baseline retained for reproducibility.
+#
+# Experiment 001 — First baseline run (5 epochs)
+# See: Phase 4.2 first baseline experiment
+
+experiment_id: experiment_001
+description: "DEPRECATED — replaced by experiment_best30h. Historical 5-epoch baseline retained for reproducibility."
+
+epochs: 5
+resume: false
+early_stopping_patience: 100
+
+run_id: experiment_001
+checkpoint_dir: checkpoints/experiment_001
+reports_dir: reports/training
+
+evaluation_run_id: experiment_001_eval
+evaluation_reports_dir: reports/evaluation
+
+experiment_output_dir: reports/experiments/experiment_001
+
+training_config: config/training.yaml
+model_config: config/model.yaml
+preprocessing_config: config/preprocessing.yaml
+evaluation_config: config/evaluation.yaml
