@@ -91,6 +91,7 @@ def run_validation() -> int:
     default_id = registry.get_default().model_id
     _assert(default_id == "monai_best30h", f"Unexpected default model: {default_id}")
     _assert("nnunet_fold0" in registry.records, "nnunet_fold0 missing from registry")
+    _assert("nnunet_ssl_2fold" in registry.records, "nnunet_ssl_2fold missing from registry")
     print(f"  registry loading / default model ({default_id}): OK")
 
     app = create_app()
@@ -114,6 +115,7 @@ def run_validation() -> int:
     _assert(models_body["default_model_id"] == default_id, "models default mismatch")
     model_ids = {item["model_id"] for item in models_body["models"]}
     _assert({"monai_best30h", "nnunet_fold0"} <= model_ids, "Expected models missing")
+    _assert("nnunet_ssl_2fold" in model_ids, "nnunet_ssl_2fold missing from registry")
     sample = next(item for item in models_body["models"] if item["model_id"] == default_id)
     _assert(
         "capabilities" in sample and "recommended_use" in sample,

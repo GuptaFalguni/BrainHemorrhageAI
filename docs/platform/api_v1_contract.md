@@ -39,7 +39,7 @@ Do not use legacy `src/api/app.py` routes (`/health`, `/predict`, `/files/{job_i
 | Name | Meaning |
 |------|---------|
 | `prediction_id` | Hex UUID for one API run |
-| `model_id` | Deployable registry id (`monai_best30h`, `nnunet_fold0`) |
+| `model_id` | Deployable registry id (`monai_best30h`, `nnunet_fold0`, `nnunet_ssl_2fold`) |
 | `experiment_id` | Experiment registry id |
 | `scan_name` | Directory-safe scan stem |
 | `total_volume_ml` | Total hemorrhage volume (mL) |
@@ -134,7 +134,7 @@ summary: object           # includes total_volume_ml (same naming as volumes)
 clinical_report_path: string | null
 ```
 
-Default model is **interactive** MONAI. Research model `nnunet_fold0` may take **minutes on CPU**.
+Default model is **interactive** MONAI. Research models `nnunet_fold0` and `nnunet_ssl_2fold` may take **minutes on CPU**.
 
 ---
 
@@ -144,6 +144,7 @@ Default model is **interactive** MONAI. Research model `nnunet_fold0` may take *
 |----------|----------|-----------|---------|
 | `monai_best30h` | interactive | monai | yes |
 | `nnunet_fold0` | research | nnunet | no |
+| `nnunet_ssl_2fold` | research | nnunet | no |
 
 Capabilities (both): overlay, volume, confidence, multiclass, severity = true; uncertainty = false.
 

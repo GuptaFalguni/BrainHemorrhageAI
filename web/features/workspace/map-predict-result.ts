@@ -1,5 +1,6 @@
 import type { PredictResponse } from "@/types/predict";
-import type { ModelResult, SubtypeVolume } from "@/stores/workspace-store";
+import type { ComparePresetId, ModelMode, ModelResult, SubtypeVolume } from "@/stores/workspace-store";
+import { API_MODEL_IDS, modelIdsForPreset } from "@/features/workspace/compare-presets";
 
 const LABEL_TO_CODE: Record<string, string> = {
   "1": "EDH",
@@ -79,7 +80,11 @@ export function mapPredictToResult(response: PredictResponse): ModelResult {
   const processingSeconds = Number(response.metadata.processing_time_sec ?? 0);
 
   const displayName =
-    response.model_id.includes("nnunet") ? "nnU-Net" : "MONAI";
+    response.model_id.includes("ssl")
+      ? "SSL nnU-Net"
+      : response.model_id.includes("nnunet")
+        ? "nnU-Net"
+        : "MONAI";
 
   return {
     modelId: response.model_id,
@@ -98,8 +103,12 @@ export function mapPredictToResult(response: PredictResponse): ModelResult {
   };
 }
 
-export function modelIdForMode(mode: "monai" | "nnunet" | "compare"): string[] {
-  if (mode === "monai") return ["monai_best30h"];
-  if (mode === "nnunet") return ["nnunet_fold0"];
-  return ["monai_best30h", "nnunet_fold0"];
+export function modelIdForMode(
+  mode: ModelMode,
+  comparePreset: ComparePresetId = "all",
+): string[] {
+  if (mode === "monai") return [API_MODEL_IDS.monai];
+  if (mode === "nnunet") return [API_MODEL_IDS.nnunet];
+  if (mode === "ssl") return [API_MODEL_IDS.ssl];
+  return modelIdsForPreset(comparePreset);
 }

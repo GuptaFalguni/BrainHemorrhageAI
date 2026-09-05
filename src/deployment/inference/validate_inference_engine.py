@@ -87,6 +87,11 @@ def run_validation(*, skip_nnunet: bool = False, project_root: Path | None = Non
     _assert(isinstance(nnunet_backend, NnUNetBackend), "nnunet_fold0 must resolve to NnUNetBackend")
     print("  factory -> nnunet_fold0: NnUNetBackend OK")
 
+    ssl_backend = factory.create("nnunet_ssl_2fold")
+    _assert(isinstance(ssl_backend, NnUNetBackend), "nnunet_ssl_2fold must resolve to NnUNetBackend")
+    _assert(ssl_backend._use_folds == (0, 1), "nnunet_ssl_2fold must use folds (0, 1)")
+    print("  factory -> nnunet_ssl_2fold: NnUNetBackend folds=(0,1) OK")
+
     monai_backend = factory.create("monai_best30h")
     _assert(isinstance(monai_backend, MonaiBackend), "monai_best30h must resolve to MonaiBackend")
     print("  factory -> monai_best30h: MonaiBackend OK")

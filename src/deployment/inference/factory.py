@@ -53,10 +53,12 @@ class InferenceFactory:
                 device=self._device or "auto",
             )
         elif framework == "nnunet":
+            folds: tuple[int, ...] = (0, 1) if resolved == "nnunet_ssl_2fold" else (0,)
             backend = NnUNetBackend(
                 model_id=resolved,
                 checkpoint_path=checkpoint,
                 device=self._device,
+                use_folds=folds,
             )
         else:
             raise ValueError(f"Unsupported framework '{framework}' for model '{resolved}'.")

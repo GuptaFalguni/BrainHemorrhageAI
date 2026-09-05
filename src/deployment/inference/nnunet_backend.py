@@ -43,6 +43,7 @@ class NnUNetBackend(InferenceBackend):
         device: str | None = None,
         use_mirroring: bool = False,
         staging_root: Path | None = None,
+        use_folds: tuple[int, ...] = (0,),
     ) -> None:
         self._model_id = model_id
         self._checkpoint_path = Path(checkpoint_path)
@@ -51,6 +52,7 @@ class NnUNetBackend(InferenceBackend):
             device = "cuda" if torch.cuda.is_available() else "cpu"
         self._device = torch.device(device)
         self._use_mirroring = bool(use_mirroring)
+        self._use_folds = tuple(int(f) for f in use_folds) or (0,)
         self._staging_root = Path(staging_root) if staging_root else (
             PROJECT_ROOT / "reports" / "inference" / "_nnunet_staging" / model_id
         )
@@ -77,7 +79,11 @@ class NnUNetBackend(InferenceBackend):
             "nnUNet_results",
             str(self._staging_root.parent / "nnUNet_results"),
         )
-        self._model_dir = prepare_nnunet_model_folder(self._checkpoint_dir, self._staging_root)
+        self._model_dir = prepare_nnunet_model_folder(
+            self._checkpoint_dir,
+            self._staging_root,
+            use_folds=self._use_folds,
+        )
         self._loaded = True
 
     def predict_volume(self, ct_path: Path) -> tuple[np.ndarray, np.ndarray, dict[str, Any]]:
@@ -105,6 +111,7 @@ class NnUNetBackend(InferenceBackend):
             device=self._device,
             use_mirroring=self._use_mirroring,
             case_limit=None,
+            use_folds=self._use_folds,
         )
 
         prediction, affine = _load_segmentation(pred_dir, scan_name)
@@ -223,6 +230,7 @@ class NnUNetBackend(InferenceBackend):
                 "shape": list(shape),
                 "spacing": list(spacing),
                 "use_mirroring": self._use_mirroring,
+                "use_folds": list(self._use_folds),
             },
         )
 

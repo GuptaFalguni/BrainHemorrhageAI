@@ -1,8 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, FlaskConical, Gauge, Layers2 } from "lucide-react";
+import { Check, FlaskConical, Gauge, Layers2, Sparkles } from "lucide-react";
 
+import {
+  COMPARE_PRESETS,
+  type ComparePresetId,
+} from "@/features/workspace/compare-presets";
 import { type ModelMode, useWorkspaceStore } from "@/stores/workspace-store";
 import { cn } from "@/lib/utils";
 
@@ -24,14 +28,21 @@ const CHOICES: {
     id: "nnunet",
     title: "nnU-Net",
     badge: "Research",
-    points: ["Highest accuracy", "Research quality", "Minutes on CPU"],
+    points: ["V1 comparator", "Research quality", "Minutes on CPU"],
     icon: FlaskConical,
   },
   {
+    id: "ssl",
+    title: "SSL nnU-Net",
+    badge: "Research",
+    points: ["2-fold ensemble", "Best fold 0.4965", "Minutes on CPU"],
+    icon: Sparkles,
+  },
+  {
     id: "compare",
-    title: "Compare Both",
+    title: "Compare",
     badge: "Side-by-side",
-    points: ["Run both sequentially", "Longer wait", "Direct comparison"],
+    points: ["Pick 2 or all 3", "Run sequentially", "Shared report"],
     icon: Layers2,
   },
 ];
@@ -39,6 +50,8 @@ const CHOICES: {
 export function ModelSelectSection() {
   const mode = useWorkspaceStore((s) => s.mode);
   const setMode = useWorkspaceStore((s) => s.setMode);
+  const comparePreset = useWorkspaceStore((s) => s.comparePreset);
+  const setComparePreset = useWorkspaceStore((s) => s.setComparePreset);
   const phase = useWorkspaceStore((s) => s.phase);
   const locked = phase === "running";
 
@@ -53,7 +66,7 @@ export function ModelSelectSection() {
         </p>
 
         <div
-          className="grid gap-4 md:grid-cols-3"
+          className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
           role="radiogroup"
           aria-label="Model selection"
         >
@@ -98,10 +111,39 @@ export function ModelSelectSection() {
                     <li key={p}>{p}</li>
                   ))}
                 </ul>
-              </motion.button>
-            );
-          })}
+            </motion.button>
+          );
+        })}
         </div>
+
+        {mode === "compare" ? (
+          <div className="mx-auto mt-8 max-w-xl">
+            <label
+              htmlFor="compare-preset"
+              className="mb-2 block text-center text-sm font-medium"
+            >
+              Models to compare
+            </label>
+            <p className="mb-3 text-center text-xs text-muted-foreground">
+              Choose all three, or any pair. Analyze and the report use this set.
+            </p>
+            <select
+              id="compare-preset"
+              value={comparePreset}
+              disabled={locked}
+              onChange={(e) =>
+                setComparePreset(e.target.value as ComparePresetId)
+              }
+              className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-70"
+            >
+              {COMPARE_PRESETS.map((preset) => (
+                <option key={preset.id} value={preset.id}>
+                  {preset.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : null}
       </div>
     </section>
   );

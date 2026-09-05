@@ -100,30 +100,74 @@ def _image_path_for_case(case_id: str, images_dir: Path) -> Path:
     raise FileNotFoundError(f"CT image not found for {case_id} under {images_dir}")
 
 
-def prepare_nnunet_model_folder(checkpoint_dir: Path, staging_root: Path) -> Path:
+def _first_existing_file(directory: Path, names: tuple[str, ...]) -> Path:
+    for name in names:
+        path = directory / name
+        if path.is_file():
+            return path
+    listed = ", ".join(names)
+    raise FileNotFoundError(f"None of [{listed}] found in {directory}")
+
+
+def prepare_nnunet_model_folder(
+    checkpoint_dir: Path,
+    staging_root: Path,
+    *,
+    use_folds: tuple[int, ...] = (0,),
+) -> Path:
     """Build the nnU-Net results layout expected by ``nnUNetPredictor``.
 
     Does not alter the original checkpoint directory.
+
+    Single-fold (default ``use_folds=(0,)``): ``checkpoint_dir`` contains
+    ``checkpoint_best.pth``, ``nnUNetPlans.json`` / ``plans.json``, and
+    ``dataset.json`` (V1 ``nnunet_fold0`` layout).
+
+    Multi-fold: ``checkpoint_dir`` is either the SSL root
+    ``checkpoints/nnunet_ssl_2fold`` or ``.../fold_0``. Fold weights live in
+    ``fold_{n}/checkpoint_best.pth``.
     """
+    checkpoint_dir = Path(checkpoint_dir)
+    folds = tuple(int(f) for f in use_folds)
+    if not folds:
+        raise ValueError("use_folds must contain at least one fold index")
+
     model_dir = (
         staging_root
         / "Dataset501_BHSD"
         / "nnUNetTrainer__nnUNetPlans__3d_fullres"
     )
-    fold_dir = model_dir / "fold_0"
-    fold_dir.mkdir(parents=True, exist_ok=True)
+    model_dir.mkdir(parents=True, exist_ok=True)
 
-    src_ckpt = checkpoint_dir / "checkpoint_best.pth"
-    if not src_ckpt.is_file():
-        raise FileNotFoundError(f"Missing checkpoint: {src_ckpt}")
-    shutil.copy2(src_ckpt, fold_dir / "checkpoint_best.pth")
+    if len(folds) == 1:
+        src_ckpt = checkpoint_dir / "checkpoint_best.pth"
+        if not src_ckpt.is_file():
+            raise FileNotFoundError(f"Missing checkpoint: {src_ckpt}")
+        fold_dir = model_dir / f"fold_{folds[0]}"
+        fold_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src_ckpt, fold_dir / "checkpoint_best.pth")
+        sidecar_root = checkpoint_dir
+    else:
+        root = (
+            checkpoint_dir.parent
+            if checkpoint_dir.name.startswith("fold_")
+            else checkpoint_dir
+        )
+        for fold in folds:
+            src_ckpt = root / f"fold_{fold}" / "checkpoint_best.pth"
+            if not src_ckpt.is_file():
+                raise FileNotFoundError(f"Missing fold {fold} checkpoint: {src_ckpt}")
+            fold_dir = model_dir / f"fold_{fold}"
+            fold_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src_ckpt, fold_dir / "checkpoint_best.pth")
+        sidecar_root = root
 
-    plans_src = checkpoint_dir / "nnUNetPlans.json"
-    if not plans_src.is_file():
-        raise FileNotFoundError(f"Missing plans: {plans_src}")
+    plans_src = _first_existing_file(sidecar_root, ("nnUNetPlans.json", "plans.json"))
     shutil.copy2(plans_src, model_dir / "plans.json")
 
-    dataset_src = checkpoint_dir / "dataset.json"
+    dataset_src = sidecar_root / "dataset.json"
+    if not dataset_src.is_file():
+        raise FileNotFoundError(f"Missing dataset.json: {dataset_src}")
     dataset = json.loads(dataset_src.read_text(encoding="utf-8"))
     # Local raw conversion uses .nii.gz; training dataset.json may say .nii
     dataset["file_ending"] = ".nii.gz"
@@ -140,6 +184,7 @@ def run_nnunet_prediction(
     device: torch.device,
     use_mirroring: bool,
     case_limit: int | None,
+    use_folds: tuple[int, ...] = (0,),
 ) -> dict[str, float]:
     """Run nnU-Net inference on locked test images. Returns per-case wall times."""
     from nnunetv2.inference.predict_from_raw_data import nnUNetPredictor
@@ -165,7 +210,7 @@ def run_nnunet_prediction(
     )
     predictor.initialize_from_trained_model_folder(
         str(model_dir),
-        use_folds=(0,),
+        use_folds=tuple(int(f) for f in use_folds),
         checkpoint_name="checkpoint_best.pth",
     )
 

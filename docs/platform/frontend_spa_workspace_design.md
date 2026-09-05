@@ -116,7 +116,7 @@ Sections are **anchors on one page**, revealed progressively.
 | 0 | `chrome` | Brand mark, API status pill, theme toggle (optional), no nav links |
 | 1 | `hero` | Brand-forward title, one sentence, research posture |
 | 2 | `upload` | Large dropzone for `.nii` / `.nii.gz` |
-| 3 | `models` | Three big selectable cards: MONAI / nnU-Net / Compare Both |
+| 3 | `models` | Four selectable cards: MONAI / nnU-Net / SSL nnU-Net / Compare Both |
 | 4 | `analyze` | Single primary Analyze button |
 | 5 | `progress` | Live elapsed, stage text, cancel (client abort only) |
 | 6 | `results` | Prediction outcome cards (1 or 2 columns) |

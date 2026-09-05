@@ -5,8 +5,8 @@
 #   docker compose up --build
 #   Open http://localhost:3000
 #
-# First API start downloads model weights (~0.7 GB) from GitHub Release
-# unless ./checkpoints is mounted with the required files.
+# Uses ./checkpoints when present (MONAI + nnU-Net fold0 + optional SSL).
+# If those files are missing, the API entrypoint downloads the v1.0.0 release.
 
 services:
   api:
@@ -18,12 +18,8 @@ services:
     environment:
       WEIGHTS_URL: ${WEIGHTS_URL:-https://github.com/GuptaFalguni/BrainHemorrhageAI/releases/download/v1.0.0/model-weights-v1.tar.gz}
     volumes:
-      - checkpoints_data:/app/checkpoints
+      - ./checkpoints:/app/checkpoints
       - api_reports:/app/reports/api_v1
-    # Optional local override (uncomment if you already have weights on disk):
-    # volumes:
-    #   - ./checkpoints:/app/checkpoints
-    #   - api_reports:/app/reports/api_v1
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/api/v1/health"]
       interval: 30s
@@ -46,5 +42,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  checkpoints_data:
   api_reports:

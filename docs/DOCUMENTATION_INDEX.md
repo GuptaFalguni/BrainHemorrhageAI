@@ -72,6 +72,14 @@ Single map of project documentation. **Start:** [`PROJECT_MASTER_GUIDE.md`](PROJ
 |----------|---------|--------|
 | `monai_best30h.md` | Model A card | Active |
 | `nnunet_fold0.md` | Model B card | Active |
+| `nnunet_ssl_2fold.md` | SSL 2-fold ensemble card | Active |
+
+## SSL (`docs/ssl/`)
+
+| Document | Purpose | Status |
+|----------|---------|--------|
+| `README.md` | Kaggle 2-fold outcomes, compute limits | Active |
+| `weights_local_status.md` | Whether epoch-511 weights are on disk | Active |
 
 ## Platform (`docs/platform/`)
 

@@ -14,6 +14,7 @@ Research-grade multi-class intracranial hemorrhage CT segmentation on BHSD (`lab
 | [`docs/platform/api_v1_contract.md`](docs/platform/api_v1_contract.md) | HTTP API (authoritative) |
 | [`docs/platform/frontend_spa_workspace_design.md`](docs/platform/frontend_spa_workspace_design.md) | Canonical product UI |
 | [`docs/results/comparison.md`](docs/results/comparison.md) | MONAI vs nnU-Net locked-test |
+| [`docs/ssl/README.md`](docs/ssl/README.md) | SSL / 2-fold Kaggle campaign (this branch) |
 
 ## Current status
 
@@ -21,12 +22,13 @@ Research-grade multi-class intracranial hemorrhage CT segmentation on BHSD (`lab
 |-------|--------|
 | MONAI `monai_best30h` | Interactive API default |
 | nnU-Net `nnunet_fold0` | Research model (slower on CPU) |
+| SSL nnU-Net `nnunet_ssl_2fold` | 2-fold ensemble (fold0 ~0.4802 · fold1 **0.4965** best); optional weights |
 | Unified inference + clinical | Implemented |
 | API v1 | Implemented |
 | Next.js SPA (`web/`) | Delivered — single-page workspace |
 | Streamlit | Legacy interim only (`frontend/app.py`) |
 
-Locked-test macro Dice: MONAI **0.257** · nnU-Net **0.455** (same 29 test cases).
+Locked-test macro Dice: MONAI **0.257** · nnU-Net **0.455** · best 5-fold fold1 **0.4965** (same 29 test cases). See [`docs/ssl/README.md`](docs/ssl/README.md).
 
 ## Run with Docker (recommended for sharing)
 
@@ -38,7 +40,7 @@ cd BrainHemorrhageAI
 docker compose up --build
 ```
 
-Then open **http://localhost:3000** — upload a CT (`.nii` / `.nii.gz`), choose MONAI / nnU-Net / Compare, Analyze.
+Then open **http://localhost:3000** — upload a CT (`.nii` / `.nii.gz`), choose MONAI / nnU-Net / SSL nnU-Net / Compare, Analyze.
 
 | Port | Service |
 |------|---------|

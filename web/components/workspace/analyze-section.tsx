@@ -22,6 +22,7 @@ import {
 export function AnalyzeSection() {
   const file = useWorkspaceStore((s) => s.file);
   const mode = useWorkspaceStore((s) => s.mode);
+  const comparePreset = useWorkspaceStore((s) => s.comparePreset);
   const phase = useWorkspaceStore((s) => s.phase);
   const setPhase = useWorkspaceStore((s) => s.setPhase);
   const setTimelineStep = useWorkspaceStore((s) => s.setTimelineStep);
@@ -85,7 +86,7 @@ export function AnalyzeSection() {
         });
       }
 
-      const modelIds = modelIdForMode(mode);
+      const modelIds = modelIdForMode(mode, comparePreset);
       const results = [];
 
       for (let i = 0; i < modelIds.length; i++) {
@@ -179,9 +180,11 @@ export function AnalyzeSection() {
             Select a CT file to enable Analyze.
           </p>
         )}
-        {mode === "nnunet" || mode === "compare" ? (
+        {mode === "nnunet" || mode === "ssl" || mode === "compare" ? (
           <p className="max-w-md text-center text-xs text-muted-foreground">
-            nnU-Net runs on the real API and can take several minutes on CPU.
+            {mode === "compare"
+              ? "Compare runs your selected models one after another. nnU-Net and SSL can take several minutes each on CPU."
+              : "nnU-Net and SSL nnU-Net run on the real API and can take several minutes on CPU."}{" "}
             Keep this tab open.
           </p>
         ) : null}

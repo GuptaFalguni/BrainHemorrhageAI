@@ -42,3 +42,21 @@ experiments:
       evaluation_report: reports/evaluation/nnunet_dataset501_fold0_eval/evaluation_report.md
       metrics_json: reports/evaluation/nnunet_dataset501_fold0_eval/metrics.json
     publication_status: locked_comparator
+
+  - experiment_id: nnunet_ssl_2fold
+    model_type: nnunet_3d_fullres
+    checkpoint_path: checkpoints/nnunet_ssl_2fold/fold_0/checkpoint_best.pth
+    config_path: config/experiments/nnunet_ssl_2fold.yaml
+    dataset: BHSD_label_192
+    epochs: 511
+    framework: nnunet
+    metrics:
+      test_macro_dice: 0.496525
+      test_macro_dice_note: "Best single fold (fold1 epoch 511). 2-fold ensemble Dice is not scored."
+      fold0_epoch510_locked_test_macro_dice: 0.480201
+      fold1_epoch511_locked_test_macro_dice: 0.496525
+      fold1_epoch679_locked_test_macro_dice: 0.441783
+      v1_nnunet_fold0_locked_test_macro_dice: 0.454723
+      splits_5fold_fingerprint: "4714804f9f1cabd9"
+      evaluation_report: docs/ssl/README.md
+    publication_status: ssl_2fold_research

@@ -1,0 +1,48 @@
+{
+  "phase": 2,
+  "expected_count": 1980,
+  "counts": {
+    "unlabeled_volumes": 1980,
+    "unique_case_ids": 1980,
+    "subgroups": {
+      "anybleed": 562,
+      "nobleed": 1418
+    }
+  },
+  "leakage": {
+    "labeled_split_counts": {
+      "train": 134,
+      "val": 29,
+      "test": 29
+    },
+    "labeled_image_count": 192,
+    "intersection_counts": {
+      "train": 0,
+      "val": 0,
+      "test": 0,
+      "all_labeled_images": 0
+    },
+    "test_leakage_free": true,
+    "val_leakage_free": true,
+    "train_overlap_count": 0,
+    "labeled_leakage_free": true
+  },
+  "checks": {
+    "count_equals_1980": true,
+    "no_duplicate_case_ids": true,
+    "no_test_overlap": true,
+    "no_val_overlap": true,
+    "no_labeled_image_overlap": true
+  },
+  "verdict": "APPROVED",
+  "label_run": {
+    "teacher_id": "nnunet_fold0",
+    "teacher_locked_test_macro_dice": 0.454723,
+    "planned": 1000,
+    "finished_ok": 800,
+    "finished_err": 0,
+    "phase7_failures_excluded": 6,
+    "leakage_vs_locked_splits": 0,
+    "note": "Unlabeled volumes received nnU-Net pseudo-labels. This is not the 0.4965 5-fold claim."
+  }
+}

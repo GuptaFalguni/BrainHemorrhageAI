@@ -102,22 +102,29 @@ function buildModelBlock(
 
 function buildCompareNote(results: ModelResult[]) {
   if (results.length < 2) return "";
-  const [a, b] = results;
-  const delta = Math.abs(a.volumeMl - b.volumeMl).toFixed(1);
-  const faster =
-    a.inferenceSeconds <= b.inferenceSeconds ? a.displayName : b.displayName;
-  const same = a.subtype === b.subtype;
+  const same = results.every((r) => r.subtype === results[0].subtype);
+  const span = (
+    Math.max(...results.map((r) => r.volumeMl)) -
+    Math.min(...results.map((r) => r.volumeMl))
+  ).toFixed(1);
+  const volumeLine = results
+    .map((r) => `${escapeHtml(r.displayName)} ${r.volumeMl.toFixed(1)} mL`)
+    .join("; ");
+  const subtypeLine = same
+    ? `All selected models predicted the same subtype (${escapeHtml(results[0].subtype)}).`
+    : `Subtype differed (${results
+        .map((r) => `${escapeHtml(r.displayName)}: ${escapeHtml(r.subtype)}`)
+        .join("; ")}).`;
+  const fastest = results.reduce((a, b) =>
+    a.inferenceSeconds <= b.inferenceSeconds ? a : b,
+  );
   return `
   <section class="card">
     <h2>Side-by-side note</h2>
-    <p>${
-      same
-        ? `Both models predicted the same subtype (${escapeHtml(a.subtype)}).`
-        : `Subtype differed (${escapeHtml(a.subtype)} vs ${escapeHtml(b.subtype)}).`
-    }
-    Estimated volumes differ by about <strong>${delta} mL</strong>
-    (${a.volumeMl.toFixed(1)} vs ${b.volumeMl.toFixed(1)}).
-    ${escapeHtml(faster)} finished faster in this run.</p>
+    <p>${subtypeLine}
+    Estimated volumes span about <strong>${span} mL</strong>
+    (${volumeLine}).
+    ${escapeHtml(fastest.displayName)} finished fastest in this run.</p>
   </section>`;
 }
 
@@ -221,6 +228,8 @@ export async function fetchAsDataUrl(src: string): Promise<string> {
 }
 
 export function modeLabelFromResults(results: ModelResult[]): string {
-  if (results.length > 1) return "Compare Both (MONAI + nnU-Net)";
+  if (results.length > 1) {
+    return `Compare (${results.map((r) => r.displayName).join(" + ")})`;
+  }
   return results[0]?.displayName ?? "Single model";
 }

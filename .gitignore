@@ -36,6 +36,9 @@ data/metadata/*
 !data/metadata/splits.csv
 !data/metadata/split_config.json
 !data/metadata/nnunet_splits_final.json
+!data/metadata/nnunet_splits_5fold.json
+!data/metadata/nnunet_splits_5fold_meta.json
+!data/metadata/unlabeled_inventory_summary.json
 
 # Environment / secrets (keep examples)
 .env

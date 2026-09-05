@@ -48,6 +48,7 @@ In-app / thesis docs (curated subset)
 | Model recommendation | `docs/results/final_model_recommendation.md` | Roles only |
 | Model A card | `docs/models/monai_best30h.md` | Serving notes point to API contract |
 | Model B card | `docs/models/nnunet_fold0.md` | Serving notes point to API contract |
+| SSL 2-fold card | `docs/models/nnunet_ssl_2fold.md` | Optional research ensemble |
 | Deployment architecture | `docs/platform/phase_c_inference_platform.md` | History + platform intent |
 | **HTTP API** | **`docs/platform/api_v1_contract.md`** | Only route table that clients follow |
 | **Frontend product UI** | **`docs/platform/frontend_spa_workspace_design.md`** | Canonical single-page workspace |

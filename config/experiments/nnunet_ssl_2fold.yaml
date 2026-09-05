@@ -1,0 +1,14 @@
+# nnU-Net SSL 2-fold serving config (fold 0 + fold 1)
+# Training used data/metadata/nnunet_splits_5fold.json (163 labeled train+val).
+# Locked test is never in those folds.
+
+dataset_id: 501
+dataset_name: BHSD
+configuration: 3d_fullres
+folds: [0, 1]
+splits_5fold_json: data/metadata/nnunet_splits_5fold.json
+splits_5fold_fingerprint: "4714804f9f1cabd9"
+checkpoint_root: checkpoints/nnunet_ssl_2fold
+# Claim metric remains locked-test macro Dice classes 1-5 n=29.
+# test_macro_dice in the experiment registry is best SINGLE fold (fold1 ep511 = 0.496525).
+# 2-fold ensemble Dice is not scored.

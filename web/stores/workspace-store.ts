@@ -2,7 +2,10 @@
 
 import { create } from "zustand";
 
-export type ModelMode = "monai" | "nnunet" | "compare";
+import type { ComparePresetId } from "@/features/workspace/compare-presets";
+
+export type ModelMode = "monai" | "nnunet" | "ssl" | "compare";
+export type { ComparePresetId };
 
 export type RunPhase =
   | "idle"
@@ -49,6 +52,7 @@ type WorkspaceState = {
   fileName: string | null;
   fileSize: number | null;
   mode: ModelMode;
+  comparePreset: ComparePresetId;
   phase: RunPhase;
   timelineStep: TimelineStepId;
   elapsedMs: number;
@@ -57,6 +61,7 @@ type WorkspaceState = {
   originalPreviewUrl: string | null;
   progressLabel: string | null;
   setMode: (mode: ModelMode) => void;
+  setComparePreset: (preset: ComparePresetId) => void;
   setFile: (file: File | null) => void;
   setPhase: (phase: RunPhase) => void;
   setTimelineStep: (step: TimelineStepId) => void;
@@ -82,6 +87,7 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
   fileName: null,
   fileSize: null,
   mode: "monai",
+  comparePreset: "all",
   phase: "idle",
   timelineStep: "upload",
   elapsedMs: 0,
@@ -90,6 +96,7 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
   originalPreviewUrl: null,
   progressLabel: null,
   setMode: (mode) => set({ mode }),
+  setComparePreset: (comparePreset) => set({ comparePreset }),
   setFile: (file) =>
     set({
       file,

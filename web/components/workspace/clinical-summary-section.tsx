@@ -44,12 +44,22 @@ function speedBlurb(result: ModelResult) {
 
 function compareBlurb(results: ModelResult[]) {
   if (results.length < 2) return null;
-  const [a, b] = results;
-  const delta = Math.abs(a.volumeMl - b.volumeMl).toFixed(1);
-  const sameSubtype = a.subtype === b.subtype;
-  return sameSubtype
-    ? `Both models pointed to the same primary subtype (${a.subtype}). Their total volume estimates differ by roughly ${delta} mL. Faster interactive feedback usually comes from MONAI; higher locked-test accuracy in this project usually comes from nnU-Net.`
-    : `The two models disagreed on primary subtype (${a.subtype} vs ${b.subtype}). Compare the per-type volume lists and overlays side by side — disagreement is for review, not a clinical decision.`;
+  const names = results.map((r) => r.displayName);
+  const span = (
+    Math.max(...results.map((r) => r.volumeMl)) -
+    Math.min(...results.map((r) => r.volumeMl))
+  ).toFixed(1);
+  const volumes = results
+    .map((r) => `${r.displayName} ${r.volumeMl.toFixed(1)} mL`)
+    .join("; ");
+  const sameSubtype = results.every((r) => r.subtype === results[0].subtype);
+  if (sameSubtype) {
+    return `${names.join(" + ")} pointed to the same primary subtype (${results[0].subtype}). Total volume estimates span about ${span} mL (${volumes}).`;
+  }
+  const subtypes = results
+    .map((r) => `${r.displayName}: ${r.subtype}`)
+    .join("; ");
+  return `The selected models disagreed on primary subtype (${subtypes}). Compare per-type volumes and overlays — disagreement is for review, not a clinical decision.`;
 }
 
 export function ClinicalSummarySection() {
@@ -154,7 +164,7 @@ export function ClinicalSummarySection() {
           {compare && (
             <div className="border-t border-border/50 pt-6">
               <p className="text-xs font-medium uppercase tracking-wider text-primary">
-                Putting both models together
+                Putting the selected models together
               </p>
               <p className="mt-2 text-base leading-relaxed">{compare}</p>
             </div>
