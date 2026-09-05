@@ -1,0 +1,55 @@
+# Severity classification rules for the clinical pipeline.
+#
+# Literature gate: severity thresholds MUST remain unset until
+# docs/clinical/severity_literature_review.md is authored and frozen.
+# Do NOT invent numeric cutoffs here.
+#
+# Engine contract:
+#   status: not_configured  → SeverityEngine returns status "not_configured"
+#   status: configured      → apply per-subtype rules that themselves have status "configured"
+
+version: 1
+status: not_configured
+literature_gate: docs/clinical/severity_literature_review.md
+disclaimer: >
+  Research Software. Not for Clinical Use. Not for diagnosis, triage, or treatment
+  decisions. Severity tiers are unavailable until literature-backed thresholds are
+  frozen. Model confidence is a softmax statistic, not a clinical probability of disease.
+
+# Global recommendations — intentionally empty (no treatment advice).
+recommendations: []
+
+limitations:
+  - Research software only; not a medical device.
+  - Not for clinical diagnosis, triage, or treatment decisions.
+  - Severity thresholds are not literature-frozen; status is not_configured.
+  - Volumes are model estimates in native voxel space; verification required.
+  - Model confidence is not calibrated clinical probability.
+  - Overlays and reports are investigative visualization aids only.
+
+subtypes:
+  EDH:
+    label_id: 1
+    status: not_configured
+    rules: []
+    citations: []
+  SDH:
+    label_id: 2
+    status: not_configured
+    rules: []
+    citations: []
+  SAH:
+    label_id: 3
+    status: not_configured
+    rules: []
+    citations: []
+  IPH:
+    label_id: 4
+    status: not_configured
+    rules: []
+    citations: []
+  IVH:
+    label_id: 5
+    status: not_configured
+    rules: []
+    citations: []

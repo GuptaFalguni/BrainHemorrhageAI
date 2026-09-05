@@ -1,0 +1,48 @@
+# BrainHemorrhageAI — API + SPA
+# Research Software — Not for Clinical Use
+#
+# Usage:
+#   docker compose up --build
+#   Open http://localhost:3000
+#
+# Uses ./checkpoints when present (MONAI + nnU-Net + SSL).
+# If those files are missing, the API entrypoint downloads the v1.1.0 release.
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    environment:
+      WEIGHTS_URL: ${WEIGHTS_URL:-https://github.com/GuptaFalguni/BrainHemorrhageAI/releases/download/v1.1.0/model-weights-v1.1.0.tar.gz}
+    # nnU-Net preprocess workers share tensors via /dev/shm. Docker default is 64 MB
+    # and crashes with "Background workers died" / "No space left on device".
+    shm_size: "2gb"
+    volumes:
+      - ./checkpoints:/app/checkpoints
+      - api_reports:/app/reports/api_v1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+      args:
+        NEXT_PUBLIC_API_BASE_URL: http://127.0.0.1:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  api_reports:

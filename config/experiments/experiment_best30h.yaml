@@ -1,0 +1,15 @@
+experiment_id: experiment_best30h
+description: Quota-optimized main run — max 45 epochs, patience 10
+epochs: 45
+resume: true
+early_stopping_patience: 10
+run_id: experiment_best30h
+checkpoint_dir: checkpoints/experiment_best30h
+reports_dir: reports/training
+evaluation_run_id: experiment_best30h_eval
+evaluation_reports_dir: reports/evaluation
+experiment_output_dir: reports/experiments/experiment_best30h
+training_config: config/training.yaml
+model_config: config/model.yaml
+preprocessing_config: config/preprocessing.yaml
+evaluation_config: config/evaluation.yaml

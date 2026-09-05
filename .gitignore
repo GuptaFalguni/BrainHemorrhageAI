@@ -1,0 +1,65 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Checkpoints — downloaded on first Docker start
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+*.pkl
+*.joblib
+
+# Local-only medical volumes (demo CTs below are tracked)
+data/raw/
+data/processed/
+data/nnunet/
+data/metadata/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# IDE / OS
+.vscode/
+.idea/
+.cursor/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Generated reports
+reports/
+
+# Packaged weights (publish as a GitHub Release, not git)
+model-weights*.tar.gz
+
+# Next.js
+web/node_modules/
+web/.next/
+web/out/
+web/coverage/
+web/.vercel/
+web/*.tsbuildinfo
+web/next-env.d.ts
+
+# Logs / temp
+*.log
+tmp/
+temp/
+*.tmp

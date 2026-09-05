@@ -1,0 +1,33 @@
+# Python / venv
+.venv/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+.git/
+.cursor/
+.vscode/
+.idea/
+
+# Large / local-only
+checkpoints/
+data/raw/
+data/processed/
+data/nnunet/
+reports/
+*.pt
+*.pth
+*.ckpt
+
+# Frontend build artifacts (rebuilt in image)
+web/node_modules/
+web/.next/
+web/out/
+web/coverage/
+
+# Docs notebooks caches / misc
+**/.ipynb_checkpoints/
+tmp/
+temp/
+*.log
+model-weights*.tar.gz
+dist/

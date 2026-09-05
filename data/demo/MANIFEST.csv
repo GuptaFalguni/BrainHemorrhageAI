@@ -1,0 +1,18 @@
+group,filename,original_id,split,n_subtypes,subtypes,missing,EDH_mL,SDH_mL,SAH_mL,IPH_mL,IVH_mL,total_mL,folder
+all_classes,all_classes.nii.gz,ID_ab1ba874_ID_0c1c9bf0ae.nii.gz,train,5,EDH SDH SAH IPH IVH,,0.420,6.709,0.315,18.820,21.569,47.832,01_all_classes
+four_classes,four_classes_SDH_SAH_IPH_IVH_1.nii.gz,ID_30d19531_ID_cf607a5cd7.nii.gz,train,4,SDH SAH IPH IVH,EDH,0.000,76.875,28.257,76.767,78.125,260.023,02_four_classes
+four_classes,four_classes_SDH_SAH_IPH_IVH_4.nii.gz,ID_f4795940_ID_6317a06429.nii.gz,train,4,SDH SAH IPH IVH,EDH,0.000,33.027,7.238,5.896,42.166,88.328,02_four_classes
+four_classes,four_classes_SDH_SAH_IPH_IVH_2.nii.gz,ID_96cd5341_ID_41b80bd3ec.nii.gz,train,4,SDH SAH IPH IVH,EDH,0.000,5.998,4.390,75.294,69.060,154.741,02_four_classes
+four_classes,four_classes_EDH_SDH_SAH_IPH_1.nii.gz,ID_b972b07f_ID_b5ace7f563.nii.gz,train,4,EDH SDH SAH IPH,IVH,10.762,58.183,2.248,4.894,0.000,76.087,02_four_classes
+four_classes,four_classes_EDH_SDH_SAH_IPH_2.nii.gz,ID_5910d129_ID_094eb98167.nii.gz,train,4,EDH SDH SAH IPH,IVH,16.654,9.279,2.050,5.069,0.000,33.052,02_four_classes
+four_classes,four_classes_SDH_SAH_IPH_IVH_3.nii.gz,ID_a2ddcdfe_ID_d7aedfd21f.nii.gz,test,4,SDH SAH IPH IVH,EDH,0.000,32.045,64.878,30.425,1.905,129.253,02_four_classes
+EDH,EDH_1.nii.gz,ID_7860208e_ID_f68c193b69.nii.gz,train,1,EDH,SDH SAH IPH IVH,133.324,0.000,0.000,0.000,0.000,133.324,03_by_class\01_EDH
+EDH,EDH_2.nii.gz,ID_596dfbc1_ID_fe7dab2602.nii.gz,train,1,EDH,SDH SAH IPH IVH,38.581,0.000,0.000,0.000,0.000,38.581,03_by_class\01_EDH
+SDH,SDH_2.nii.gz,ID_58d2ebfa_ID_76487f508f.nii.gz,test,1,SDH,EDH SAH IPH IVH,0.000,31.683,0.000,0.000,0.000,31.683,03_by_class\02_SDH
+SDH,SDH_1.nii.gz,ID_ca7bbeab_ID_228e9cbe5c.nii.gz,train,3,SDH SAH IPH,EDH IVH,0.000,194.151,32.295,1.366,0.000,227.811,03_by_class\02_SDH
+SAH,SAH_2.nii.gz,ID_6fcd55db_ID_9ed6724906.nii.gz,train,1,SAH,EDH SDH IPH IVH,0.000,0.000,14.045,0.000,0.000,14.045,03_by_class\03_SAH
+SAH,SAH_1.nii.gz,ID_87385103_ID_684afaed55.nii.gz,train,2,SDH SAH,EDH IPH IVH,0.000,30.416,66.276,0.000,0.000,96.692,03_by_class\03_SAH
+IPH,IPH_1.nii.gz,ID_66a9a60e_ID_3a4f389a07.nii.gz,train,2,SAH IPH,EDH SDH IVH,0.000,0.000,3.252,69.337,0.000,72.589,03_by_class\04_IPH
+IVH,IVH_2.nii.gz,ID_2a42d0a0_ID_5fdc3fb915.nii.gz,train,1,IVH,EDH SDH SAH IPH,0.000,0.000,0.000,0.000,87.473,87.473,03_by_class\05_IVH
+IVH,IVH_1.nii.gz,ID_69b19057_ID_44d0da38f2.nii.gz,test,3,SAH IPH IVH,EDH SDH,0.000,0.000,2.080,1.198,215.222,218.501,03_by_class\05_IVH
+IPH,IPH_2.nii.gz,ID_eb39f236_ID_d7edccdb08.nii.gz,,2,SAH IPH,,0.000,0.000,0.532,51.981,0.000,52.513,03_by_class\04_IPH
