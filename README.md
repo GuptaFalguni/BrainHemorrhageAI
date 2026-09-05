@@ -4,7 +4,7 @@ Research software that draws hemorrhage regions on a head CT and estimates volum
 
 **Not for clinical use. Not a medical device. Not a diagnosis.**
 
-This `release` branch is the public demo: a website, three trained models, and sample scans. Training notebooks and research notes live on other branches.
+This `release` branch is the public demo: a website, three trained models, sample scans, and two short teaching notebooks.
 
 ## What you need
 
@@ -41,6 +41,17 @@ First start downloads model weights from GitHub Release `v1.1.0` if `checkpoints
 Dice / IoU: higher is better. Volume error: lower is better.
 
 The one longer explanation of the idea, the workflow, and these numbers is [`docs/HOW_IT_WORKS.md`](docs/HOW_IT_WORKS.md).
+
+## Teaching notebooks (preprocessing)
+
+Open these in Jupyter or on GitHub. They use `data/demo/` only — no GPU, no Docker.
+
+| Notebook | What it shows |
+|---|---|
+| [`notebooks/01_monai_nnunet_preprocessing.ipynb`](notebooks/01_monai_nnunet_preprocessing.ipynb) | EDA + locked HU window + how MONAI (2.5D) and nnU-Net (3D) use the same CT |
+| [`notebooks/02_ssl_preprocessing.ipynb`](notebooks/02_ssl_preprocessing.ipynb) | Same window; labeling vs 2-fold training; ensemble Dice 0.489 |
+
+Inference is explained in plain language at the end of each notebook. To *run* a model, use Docker above.
 
 ## Sample scans
 

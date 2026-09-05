@@ -103,8 +103,17 @@ The first start downloads **all three models** (~1 GB) from GitHub Release **v1.
 - It does not replace a radiologist.
 - Confidence is uncalibrated research output.
 - It does not include the full 192-scan training set.
-- It does not include training notebooks (those stay on the research branch).
+- Full research notebooks stay on the `ssl_sep` branch. This branch has two short teaching notebooks in `notebooks/`.
 - EDH remains the hardest class, especially for MONAI.
+
+## Teaching notebooks
+
+| File | Audience |
+|---|---|
+| [`notebooks/01_monai_nnunet_preprocessing.ipynb`](../notebooks/01_monai_nnunet_preprocessing.ipynb) | How a CT is clipped, normalized, and fed to MONAI vs nnU-Net |
+| [`notebooks/02_ssl_preprocessing.ipynb`](../notebooks/02_ssl_preprocessing.ipynb) | Same window; what the SSL labeling run was; what the 2-fold ensemble is |
+
+Both use `data/demo/`. They do not start the Docker predictor.
 
 ## Pointers
 
