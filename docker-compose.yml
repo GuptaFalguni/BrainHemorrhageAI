@@ -17,6 +17,9 @@ services:
       - "8000:8000"
     environment:
       WEIGHTS_URL: ${WEIGHTS_URL:-https://github.com/GuptaFalguni/BrainHemorrhageAI/releases/download/v1.0.0/model-weights-v1.tar.gz}
+    # nnU-Net preprocess workers share tensors via /dev/shm. Docker default is 64 MB
+    # and crashes with "Background workers died" / "No space left on device".
+    shm_size: "2gb"
     volumes:
       - ./checkpoints:/app/checkpoints
       - api_reports:/app/reports/api_v1

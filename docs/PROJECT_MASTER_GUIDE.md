@@ -96,7 +96,7 @@ Recommendation: [`results/final_model_recommendation.md`](results/final_model_re
 
 **Roles (frozen):** nnU-Net = quality / research; MONAI = interactive default / latency.
 
-SSL 2-fold ensemble (this branch): [`ssl/README.md`](ssl/README.md) · card [`models/nnunet_ssl_2fold.md`](models/nnunet_ssl_2fold.md). Best single-fold locked-test is fold1 epoch 511 **0.4965**. Ensemble Dice is not scored.
+SSL 2-fold ensemble (this branch): [`ssl/README.md`](ssl/README.md) · card [`models/nnunet_ssl_2fold.md`](models/nnunet_ssl_2fold.md). Locked-test ensemble Dice **0.488552** (IoU 0.343, volume error 18.5 mL). Best single fold remains fold1 epoch 511 **0.4965**.
 
 ---
 

@@ -28,7 +28,7 @@ Same metric as V1 nnU-Net **0.454723**.
 
 Fold1 epoch 511 **beats** the previous 0.45 baseline. Epoch 679 is a known regression: do not serve it as “best.”
 
-The UI **runs** a 2-fold softmax ensemble (`use_folds=(0, 1)`). A pooled **ensemble** locked-test Dice has **not** been scored. Registry / UI text cites the two **single-fold** numbers; do not invent an ensemble Dice.
+The UI **runs** a 2-fold softmax ensemble (`use_folds=(0, 1)`). Locked-test ensemble (n=29): **Dice 0.488552 · IoU 0.342806 · volume error 18.50 mL mean / 4.46 mL median**. That beats V1 nnU-Net on overlap (0.455 / 0.313) and loses on volume error (14.32 mL). Best single fold remains fold1 epoch 511 (**0.496525**).
 
 ## Conclusion — why only 2 folds
 

@@ -22,16 +22,17 @@ This is a **softmax ensemble of fold 0 and fold 1** from the new 5-fold nnU-Net 
 - **Dev set:** 163 = locked train+val; **locked test (29) never included**
 - Unlabeled LabelRun (800/1000) is a **separate** pseudo-label campaign — see the preprocessing notebook
 
-## Locked-test scores (single folds, n=29, classes 1–5)
+## Locked-test scores (n=29, classes 1–5)
 
-| Run | Macro Dice |
-|---|---|
-| V1 `nnunet_fold0` | 0.454723 |
-| New fold0 ~epoch 510 | 0.4802 |
-| New fold1 epoch 511 | **0.4965** (best so far) |
-| New fold1 epoch 679 | 0.4418 (do not serve) |
+| Run | Macro Dice | Mean IoU | Volume error (mean / median) |
+|---|---|---|---|
+| V1 `nnunet_fold0` | 0.454723 | 0.313058 | **14.32 / 3.73 mL** |
+| New fold0 ~epoch 510 (single) | 0.4802 | — | — |
+| New fold1 epoch 511 (single) | **0.4965** (best fold) | — | — |
+| New fold1 epoch 679 (single) | 0.4418 (do not serve) | — | — |
+| **Served 2-fold ensemble** | **0.488552** | **0.342806** | 18.50 / 4.46 mL |
 
-`macro_dice` in the model registry is **0.496525** (best **single** fold). A pooled **2-fold ensemble** Dice has **not** been scored — do not invent one.
+`macro_dice` in the model registry is the **ensemble** score (**0.488552**). Best single fold remains fold1 epoch 511 (**0.496525**). Ensemble beats V1 on Dice and IoU; V1 still has the lower volume error.
 
 ## Checkpoint warning
 
@@ -47,4 +48,4 @@ Fold1 Kaggle `checkpoint_best.pth` may be a **later EMA (~epoch 775)**, not epoc
 
 ## Recommended use
 
-Research comparison when quality matters more than wait time. Default interactive model remains `monai_best30h`. Compare Both still runs MONAI vs V1 `nnunet_fold0` only.
+Research comparison when overlap quality matters more than wait time or volume calibration. Default interactive model remains `monai_best30h`. Compare can run any 2 or all 3 models.

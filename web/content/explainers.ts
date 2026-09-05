@@ -44,12 +44,12 @@ export const LEARN_ACCORDION = [
   {
     id: "model-comparison",
     title: "How to read model comparison",
-    body: `The comparison table places MONAI, nnU-Net, and SSL nnU-Net on the same locked-test metrics. MONAI is the fast interactive demo. nnU-Net fold 0 is the V1 research comparator. SSL nnU-Net is the 2-fold campaign model with the highest single-fold Dice here (0.4965); its ensemble Dice is not scored.`,
+    body: `The comparison table places MONAI, nnU-Net, and SSL nnU-Net on the same locked-test metrics. MONAI is the fast interactive demo. nnU-Net fold 0 is the V1 research comparator. SSL nnU-Net is the 2-fold softmax ensemble (Dice 0.489, IoU 0.343). It wins overlap; V1 nnU-Net still has the lower volume error (14.3 vs 18.5 mL mean).`,
   },
   {
     id: "monai-vs-nnunet",
     title: "MONAI vs nnU-Net vs SSL",
-    body: `MONAI: fastest CPU feedback, lowest locked-test Dice. nnU-Net fold 0: slower, Dice 0.455. SSL nnU-Net: slowest (about 2× fold 0), best single-fold Dice 0.4965. Compare runs your chosen 2 or 3 models one after another on the same file.`,
+    body: `MONAI: fastest CPU feedback, lowest locked-test Dice (0.257). nnU-Net fold 0: slower, Dice 0.455, best volume error (14.3 mL). SSL nnU-Net: slowest (about 2× fold 0), ensemble Dice 0.489. Compare runs your chosen 2 or 3 models one after another on the same file.`,
   },
 ] as const;
 
@@ -61,7 +61,7 @@ export const COMPARISON_ROWS = [
     metric: "Dice",
     monai: "0.257",
     nnunet: "0.455",
-    ssl: "0.4965*",
+    ssl: "0.489",
     meaning: "Overlap with expert labels on the locked test set",
     tooltip: METRIC_TOOLTIPS.dice,
     winner: "ssl" as ComparisonWinner,
@@ -69,19 +69,19 @@ export const COMPARISON_ROWS = [
   {
     id: "iou",
     metric: "IoU",
-    monai: "0.16",
-    nnunet: "0.31",
-    ssl: "Not scored",
+    monai: "0.163",
+    nnunet: "0.313",
+    ssl: "0.343",
     meaning: "Another way to measure region overlap",
     tooltip: METRIC_TOOLTIPS.iou,
-    winner: "nnunet" as ComparisonWinner,
+    winner: "ssl" as ComparisonWinner,
   },
   {
     id: "volume_error",
     metric: "Volume error",
     monai: "19.5 mL mean",
     nnunet: "14.3 mL mean",
-    ssl: "Not scored",
+    ssl: "18.5 mL mean",
     meaning: "How far predicted volume sits from expert volume",
     tooltip: METRIC_TOOLTIPS.volume_error,
     winner: "nnunet" as ComparisonWinner,

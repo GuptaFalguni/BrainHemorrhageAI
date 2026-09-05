@@ -100,10 +100,11 @@ export function ComparisonSection() {
             </table>
           </div>
           <p className="border-t border-border/40 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
-            * SSL Dice is the best single fold (0.4965). The 2-fold ensemble has
-            not been scored on the locked test set. SSL IoU and volume error are
-            not measured. Live Compare runs only the models you pick in the
-            dropdown.
+            SSL numbers are the 2-fold softmax ensemble on the locked 29-case
+            test set (Dice 0.489 · IoU 0.343 · volume error 18.5 mL mean / 4.5
+            mL median). Best single fold remains 0.4965 and is not what the UI
+            serves. Lower volume error wins — that is still V1 nnU-Net. Live
+            Compare runs only the models you pick in the dropdown.
           </p>
         </motion.div>
       </div>

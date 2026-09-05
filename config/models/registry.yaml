@@ -56,12 +56,13 @@ models:
     framework: nnunet
     version: "ssl_sep"
     default: false
-    description: "Softmax ensemble of new 5-fold fold0 (~epoch 510, locked-test 0.4802) and fold1 (epoch 511, locked-test 0.4965). Best single fold beats V1 nnU-Net 0.454723. Pooled 2-fold ensemble Dice is not scored. Optional weights — not in the v1.0.0 Docker tarball."
+    description: "Softmax ensemble of new 5-fold fold0 (~epoch 510, single-fold 0.4802) and fold1 (epoch 511, single-fold 0.4965). Locked-test ensemble: macro Dice 0.488552, mean IoU 0.342806, volume error 18.505 mL mean. Beats V1 nnU-Net on overlap; V1 still has lower volume error (14.318 mL). Optional weights — not in the v1.0.0 Docker tarball."
     paper: "Isensee et al., nnU-Net, Nature Methods 2021; BHSD Wu et al. arXiv:2308.11298"
     training_dataset: BHSD_label_192
-    macro_dice: 0.496525
+    macro_dice: 0.488552
+    volume_error_mean_ml: 18.5048
     speed: "About 2× V1 nnU-Net; minutes on CPU"
-    limitations: "Ensemble locked-test Dice not scored; fold1 later EMA is not 0.4965; slow on CPU; uncalibrated confidence; 2 of 5 folds only due to compute."
+    limitations: "Worse mean volume error than V1 nnU-Net (18.5 vs 14.3 mL); fold1 later EMA is not the 0.4965 single-fold file; slow on CPU; uncalibrated confidence; 2 of 5 folds only due to compute."
     recommended_use: "Research SSL-campaign model (API model_id=nnunet_ssl_2fold). Not the interactive default."
     model_card: docs/models/nnunet_ssl_2fold.md
     supports_overlay: true

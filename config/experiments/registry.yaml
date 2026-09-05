@@ -51,8 +51,12 @@ experiments:
     epochs: 511
     framework: nnunet
     metrics:
-      test_macro_dice: 0.496525
-      test_macro_dice_note: "Best single fold (fold1 epoch 511). 2-fold ensemble Dice is not scored."
+      test_macro_dice: 0.488552
+      test_micro_dice: 0.544718
+      test_mean_iou_classes_1_5: 0.342806
+      test_volume_error_mean_ml: 18.5048
+      test_volume_error_median_ml: 4.4590
+      test_macro_dice_note: "2-fold softmax ensemble (use_folds=0,1) on locked n=29. Best single fold remains fold1 epoch 511 = 0.496525."
       fold0_epoch510_locked_test_macro_dice: 0.480201
       fold1_epoch511_locked_test_macro_dice: 0.496525
       fold1_epoch679_locked_test_macro_dice: 0.441783

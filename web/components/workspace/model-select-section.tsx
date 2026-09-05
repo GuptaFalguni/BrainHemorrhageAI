@@ -35,7 +35,7 @@ const CHOICES: {
     id: "ssl",
     title: "SSL nnU-Net",
     badge: "Research",
-    points: ["2-fold ensemble", "Best fold 0.4965", "Minutes on CPU"],
+    points: ["2-fold ensemble", "Locked-test Dice 0.489", "Minutes on CPU"],
     icon: Sparkles,
   },
   {

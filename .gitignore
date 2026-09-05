@@ -75,3 +75,6 @@ web/next-env.d.ts
 tmp/
 temp/
 *.tmp
+
+# Throwaway Kaggle eval kit (delete after scoring)
+kaggle/

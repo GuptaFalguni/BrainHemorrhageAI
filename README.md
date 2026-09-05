@@ -22,13 +22,13 @@ Research-grade multi-class intracranial hemorrhage CT segmentation on BHSD (`lab
 |-------|--------|
 | MONAI `monai_best30h` | Interactive API default |
 | nnU-Net `nnunet_fold0` | Research model (slower on CPU) |
-| SSL nnU-Net `nnunet_ssl_2fold` | 2-fold ensemble (fold0 ~0.4802 · fold1 **0.4965** best); optional weights |
+| SSL nnU-Net `nnunet_ssl_2fold` | 2-fold ensemble (locked-test Dice **0.489** · IoU **0.343**); optional weights |
 | Unified inference + clinical | Implemented |
 | API v1 | Implemented |
 | Next.js SPA (`web/`) | Delivered — single-page workspace |
 | Streamlit | Legacy interim only (`frontend/app.py`) |
 
-Locked-test macro Dice: MONAI **0.257** · nnU-Net **0.455** · best 5-fold fold1 **0.4965** (same 29 test cases). See [`docs/ssl/README.md`](docs/ssl/README.md).
+Locked-test macro Dice: MONAI **0.257** · nnU-Net **0.455** · SSL 2-fold ensemble **0.489** (same 29 test cases; best single fold 0.4965). See [`docs/ssl/README.md`](docs/ssl/README.md).
 
 ## Run with Docker (recommended for sharing)
 
