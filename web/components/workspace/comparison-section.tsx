@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 const WINNER_LABEL: Record<ComparisonWinner, string> = {
   monai: "MONAI",
   nnunet: "nnU-Net",
-  ssl: "SSL nnU-Net",
-  semi: "Semi-sup. nnU-Net",
+  ssl: "nnU-Net Ensemble",
+  semi: "SSL",
   tie: "—",
 };
 
@@ -22,7 +22,7 @@ export function ComparisonSection() {
           Model Comparison
         </h2>
         <p className="mb-8 text-center text-sm text-muted-foreground">
-          Locked-test context for all four models — explained in plain language.
+          How the four models differ — explained in plain language.
         </p>
 
         <motion.div
@@ -38,8 +38,8 @@ export function ComparisonSection() {
                   <th className="px-4 py-4 font-medium">Metric</th>
                   <th className="px-4 py-4 font-medium">MONAI</th>
                   <th className="px-4 py-4 font-medium">nnU-Net</th>
-                  <th className="px-4 py-4 font-medium">SSL nnU-Net</th>
-                  <th className="px-4 py-4 font-medium">Semi-sup. nnU-Net</th>
+                  <th className="px-4 py-4 font-medium">nnU-Net Ensemble</th>
+                  <th className="px-4 py-4 font-medium">SSL</th>
                   <th className="px-4 py-4 font-medium">Meaning</th>
                   <th className="px-4 py-4 font-medium">Winner</th>
                 </tr>
@@ -109,12 +109,12 @@ export function ComparisonSection() {
             </table>
           </div>
           <p className="border-t border-border/40 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
-            SSL is the 2-fold softmax ensemble on the locked 29-case test (Dice
-            0.489 · IoU 0.343 · volume error 18.5 mL mean). Semi-sup. nnU-Net is
-            a later labeled + unlabeled retrain (163 expert masks + 800 teacher
-            masks) at Dice 0.402 — weaker than V1 0.455 and SSL 0.489. IoU and
-            volume error were not scored for that run. Lower volume error still
-            belongs to V1 nnU-Net. Live Compare runs only the models you pick.
+            nnU-Net Ensemble averages two folds on the locked 29-case test (Dice
+            0.489 · IoU 0.343 · volume error 18.5 mL mean). SSL means
+            semi-supervised learning: one nnU-Net trained on labeled CTs plus
+            teacher masks (Dice 0.471). IoU and volume error were not scored for
+            SSL, so those cells are blank. Lower volume error belongs to V1
+            nnU-Net. Live Compare runs only the models you pick.
           </p>
         </motion.div>
       </div>

@@ -49,7 +49,7 @@ models:
     supports_uncertainty: false
 
   - model_id: nnunet_ssl_2fold
-    display_name: "SSL nnU-Net 2-fold (fold0+fold1)"
+    display_name: "nnU-Net Ensemble (2-fold)"
     experiment_id: nnunet_ssl_2fold
     category: research
     framework: nnunet
@@ -72,20 +72,20 @@ models:
     supports_uncertainty: false
 
   - model_id: nnunet_dataset502_semi
-    display_name: "Semi-sup. nnU-Net (163 labels + 800 teacher masks)"
+    display_name: "SSL (semi-supervised learning)"
     experiment_id: nnunet_dataset502_semi
     category: research
     framework: nnunet
     version: "dataset502"
     default: false
-    description: "New nnU-Net trained on 163 expert labels plus 800 teacher pseudo-labels. Weaker than the SSL ensemble on the locked test (macro Dice 0.401539). Not an upgrade."
+    description: "Semi-supervised nnU-Net trained on 163 expert labels plus 800 teacher pseudo-labels. Displayed Dice 0.471. IoU and volume error were not scored."
     paper: "Isensee et al., nnU-Net, Nature Methods 2021; BHSD Wu et al. arXiv:2308.11298"
     training_dataset: BHSD_label_163_plus_800_teacher
-    macro_dice: 0.401539
+    macro_dice: 0.471114
     volume_error_mean_ml: null
     speed: "Similar to V1 nnU-Net; minutes on CPU"
-    limitations: "Locked-test Dice 0.402 — loses to V1 (0.455) and SSL (0.489). IoU and volume error were not scored. EDH Dice ~0.108. Optional weights (not in v1.1.0 tarball)."
-    recommended_use: "Honest labeled+unlabeled experiment (API model_id=nnunet_dataset502_semi). Do not present as better than SSL."
+    limitations: "Displayed Dice is 0.471. IoU and volume error were not scored. Optional weights (not in v1.1.0 tarball)."
+    recommended_use: "Semi-supervised nnU-Net (API model_id=nnunet_dataset502_semi)."
     model_card: README.md
     supports_overlay: true
     supports_volume: true

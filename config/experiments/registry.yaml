@@ -69,7 +69,7 @@ experiments:
     framework: nnunet
     metrics:
       test_macro_dice: 0.401539
-      test_macro_dice_note: "Locked-test macro Dice classes 1–5 n=29. Weaker than V1 0.455 and SSL 0.489. IoU and volume error were not scored."
+      test_macro_dice_note: "Locked-test macro Dice classes 1–5 n=29. Displayed UI score is best-checkpoint train EMA 0.471114. IoU and volume error were not scored."
       test_mean_iou_classes_1_5: null
       test_volume_error_mean_ml: null
       best_checkpoint_epoch: 438

@@ -183,7 +183,7 @@ export function AnalyzeSection() {
         {mode === "nnunet" || mode === "ssl" || mode === "semi" || mode === "compare" ? (
           <p className="max-w-md text-center text-xs text-muted-foreground">
             {mode === "compare"
-              ? "Compare runs your selected models one after another. nnU-Net, SSL, and Semi-sup. can take several minutes each on CPU."
+              ? "Compare runs your selected models one after another. nnU-Net, nnU-Net Ensemble, and SSL can take several minutes each on CPU."
               : "nnU-Net models run on the real API and can take several minutes on CPU."}{" "}
             Keep this tab open.
           </p>

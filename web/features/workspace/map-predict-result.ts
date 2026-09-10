@@ -81,9 +81,9 @@ export function mapPredictToResult(response: PredictResponse): ModelResult {
 
   const displayName =
     response.model_id.includes("502") || response.model_id.includes("semi")
-      ? "Semi-sup. nnU-Net"
+      ? "SSL"
       : response.model_id.includes("ssl")
-        ? "SSL nnU-Net"
+        ? "nnU-Net Ensemble"
         : response.model_id.includes("nnunet")
           ? "nnU-Net"
           : "MONAI";

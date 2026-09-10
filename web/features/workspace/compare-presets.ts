@@ -20,7 +20,7 @@ export const COMPARE_PRESETS: {
 }[] = [
   {
     id: "all",
-    label: "All 4 models — MONAI, nnU-Net, SSL, Semi-sup.",
+    label: "All 4 models — MONAI, nnU-Net, nnU-Net Ensemble, SSL",
     modelIds: [
       API_MODEL_IDS.monai,
       API_MODEL_IDS.nnunet,
@@ -35,22 +35,22 @@ export const COMPARE_PRESETS: {
   },
   {
     id: "monai-ssl",
-    label: "MONAI + SSL nnU-Net",
+    label: "MONAI + nnU-Net Ensemble",
     modelIds: [API_MODEL_IDS.monai, API_MODEL_IDS.ssl],
   },
   {
     id: "nnunet-ssl",
-    label: "nnU-Net + SSL nnU-Net",
+    label: "nnU-Net + nnU-Net Ensemble",
     modelIds: [API_MODEL_IDS.nnunet, API_MODEL_IDS.ssl],
   },
   {
     id: "ssl-semi",
-    label: "SSL nnU-Net + Semi-sup. nnU-Net",
+    label: "nnU-Net Ensemble + SSL",
     modelIds: [API_MODEL_IDS.ssl, API_MODEL_IDS.semi],
   },
   {
     id: "nnunet-semi",
-    label: "nnU-Net + Semi-sup. nnU-Net",
+    label: "nnU-Net + SSL",
     modelIds: [API_MODEL_IDS.nnunet, API_MODEL_IDS.semi],
   },
 ];

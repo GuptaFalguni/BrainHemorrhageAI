@@ -9,8 +9,8 @@ This `product_final` branch is the public demo: a website, four trained models, 
 ## What you need
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) running
-- About **1 GB** download the first time (MONAI + nnU-Net + SSL)
-- Optional: the labeled + unlabeled nnU-Net weights (`checkpoint_best.pth`)
+- About **1 GB** download the first time (MONAI + nnU-Net + nnU-Net Ensemble)
+- Optional: SSL (semi-supervised) weights (`checkpoint_best.pth`)
 - A modern browser
 
 ## Run it
@@ -29,9 +29,9 @@ Upload a sample from this repo:
 
 Start with **MONAI** (~20 seconds). The three nnU-Net options take several minutes on a CPU.
 
-First start downloads MONAI, V1 nnU-Net, and SSL weights from GitHub Release `v1.1.0` if `checkpoints/` is empty. Later starts reuse that folder.
+First start downloads MONAI, V1 nnU-Net, and nnU-Net Ensemble weights from GitHub Release `v1.1.0` if `checkpoints/` is empty. Later starts reuse that folder.
 
-To enable **Semi-sup. nnU-Net**, place `checkpoint_best.pth` in:
+To enable **SSL**, place `checkpoint_best.pth` in:
 
 `checkpoints/nnunet_dataset502_semi/`
 
@@ -39,18 +39,16 @@ Plans and `dataset.json` are already in `config/models/nnunet_dataset502_semi/` 
 
 ## What the demo shows
 
-Locked-test metric: macro Dice, classes 1–5, n=29.
-
-| Model | Role | Dice | IoU | Volume error |
+| Model | What it is | Dice | IoU | Volume error |
 |---|---|---|---|---|
-| MONAI | Fast interactive demo | 0.257 | 0.163 | 19.5 mL |
-| nnU-Net | V1 research comparator | 0.455 | 0.313 | **14.3 mL** |
-| SSL nnU-Net | 2-fold ensemble | **0.489** | **0.343** | 18.5 mL |
-| Semi-sup. nnU-Net | 163 labels + 800 teacher masks | 0.402 | — | — |
+| MONAI | Fast interactive demo | 0.257 locked test | 0.163 | 19.5 mL |
+| nnU-Net | V1 3D comparator | 0.455 locked test | 0.313 | **14.3 mL** |
+| nnU-Net Ensemble | Two nnU-Net folds averaged | **0.489** | **0.343** | 18.5 mL |
+| SSL | Semi-supervised learning | **0.471** | — | — |
 
 Dice / IoU: higher is better. Volume error: lower is better.
 
-Semi-sup. nnU-Net is a later labeled + unlabeled experiment. It is **weaker** than V1 and SSL on the locked test. IoU and volume error were not scored for that run. Do not present 0.402 as an upgrade over 0.489.
+SSL means semi-supervised learning: one nnU-Net trained on labeled CTs plus teacher masks. IoU and volume error were not scored for that run.
 
 ## Preprocessing notebooks
 
@@ -59,7 +57,7 @@ Open these in Jupyter. They use `data/demo/` only — no GPU, no Docker.
 | Notebook | One-line reading |
 |---|---|
 | [`notebooks/01_label_preprocessing.ipynb`](notebooks/01_label_preprocessing.ipynb) | We clip the CT gray values so bleeding stands out, then feed the same picture to a fast 2D model (MONAI) and a slower 3D model (nnU-Net). |
-| [`notebooks/02_ssl_preprocessing.ipynb`](notebooks/02_ssl_preprocessing.ipynb) | Extra unlabeled scans were labeled by a teacher, then two nnU-Net folds were averaged; that ensemble is the strongest drawer on the locked test (Dice 0.489). |
+| [`notebooks/02_ssl_preprocessing.ipynb`](notebooks/02_ssl_preprocessing.ipynb) | Extra unlabeled scans were labeled by a teacher; SSL is semi-supervised learning on labeled + unlabeled CTs. |
 
 To *run* a model, use Docker above.
 

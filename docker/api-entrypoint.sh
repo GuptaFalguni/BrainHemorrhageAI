@@ -59,9 +59,9 @@ if [ -d "${SEMI_SIDECARS}" ]; then
   done
 fi
 if [ -f "${SEMI_CKPT}" ]; then
-  echo "[entrypoint] Semi-sup. nnU-Net weights present (optional fourth model)."
+  echo "[entrypoint] SSL (semi-supervised) weights present (optional fourth model)."
 else
-  echo "[entrypoint] Semi-sup. nnU-Net weights missing — place checkpoint_best.pth in checkpoints/nnunet_dataset502_semi/ to enable that option."
+  echo "[entrypoint] SSL (semi-supervised) weights missing — place checkpoint_best.pth in checkpoints/nnunet_dataset502_semi/ to enable that option."
 fi
 
 mkdir -p "${APP_ROOT}/reports/api_v1/predictions"

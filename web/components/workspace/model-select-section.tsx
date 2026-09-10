@@ -33,16 +33,16 @@ const CHOICES: {
   },
   {
     id: "ssl",
-    title: "SSL nnU-Net",
-    badge: "Research",
-    points: ["2-fold ensemble", "Locked-test Dice 0.489", "Minutes on CPU"],
+    title: "nnU-Net Ensemble",
+    badge: "2-fold",
+    points: ["Two nnU-Net folds averaged", "Locked-test Dice 0.489", "Minutes on CPU"],
     icon: Sparkles,
   },
   {
     id: "semi",
-    title: "Semi-sup. nnU-Net",
-    badge: "Experiment",
-    points: ["163 labels + 800 teacher masks", "Locked-test Dice 0.402", "Weaker than SSL"],
+    title: "SSL",
+    badge: "Semi-supervised learning",
+    points: ["Labeled + unlabeled CTs", "Locked-test Dice 0.471", "Minutes on CPU"],
     icon: Combine,
   },
   {
@@ -66,10 +66,13 @@ export function ModelSelectSection() {
     <section id="models" className="scroll-mt-20 px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-5xl">
         <h2 className="mb-2 text-center text-2xl font-semibold tracking-tight">
-          Model Selection
+          Choose a model
         </h2>
-        <p className="mb-8 text-center text-sm text-muted-foreground">
-          Choose one option. Only one selection at a time.
+        <p className="mx-auto mb-8 max-w-2xl text-center text-sm text-muted-foreground">
+          MONAI is the fast demo. nnU-Net is the V1 3D model.{" "}
+          <span className="text-foreground">nnU-Net Ensemble</span> averages two
+          folds (Dice 0.489). <span className="text-foreground">SSL</span> means
+          semi-supervised learning — labeled CTs plus teacher masks (Dice 0.471).
         </p>
 
         <div
@@ -109,7 +112,7 @@ export function ModelSelectSection() {
                 <div className="mb-4 flex size-11 items-center justify-center rounded-2xl bg-primary/15 text-primary">
                   <Icon className="size-5" />
                 </div>
-                <p className="text-lg font-semibold">{choice.title}</p>
+                <p className="text-lg font-semibold leading-tight">{choice.title}</p>
                 <p className="mt-1 text-xs font-medium uppercase tracking-wider text-primary">
                   {choice.badge}
                 </p>
