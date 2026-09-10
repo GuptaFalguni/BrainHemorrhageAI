@@ -1,0 +1,7 @@
+# Labeled + unlabeled nnU-Net (Dataset502). Not the served SSL 0.489 ensemble.
+dataset_id: 502
+dataset_name: BHSD_semi
+configuration: 3d_fullres
+fold: 0
+checkpoint_root: checkpoints/nnunet_dataset502_semi
+sidecar_dir: config/models/nnunet_dataset502_semi

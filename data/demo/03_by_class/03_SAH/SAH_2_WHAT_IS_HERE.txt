@@ -1,1 +1,0 @@
-Scan: SAH_2.nii.gz

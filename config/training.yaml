@@ -1,5 +1,4 @@
 # Version 1 baseline training configuration
-# See: docs/architecture/training_pipeline_design.md
 
 # Optimization
 epochs: 150

@@ -1,7 +1,4 @@
-# Version 1 intensity preprocessing — locked after literature review
-# See: docs/research/windowing_literature_review.md
-#
-# Primary citation: Wu et al., BHSD (arXiv:2308.11298), Section 3.0.2:
+# Locked intensity window (Wu et al., BHSD arXiv:2308.11298, Section 3.0.2):
 #   truncate HU to [-40, 120]; normalize as (HU - 40) / 80
 #
 # window_level / window_width: radiological brain window reference (Chilamkurthy et al.,

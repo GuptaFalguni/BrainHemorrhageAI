@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, FlaskConical, Gauge, Layers2, Sparkles } from "lucide-react";
+import { Check, Combine, FlaskConical, Gauge, Layers2, Sparkles } from "lucide-react";
 
 import {
   COMPARE_PRESETS,
@@ -39,10 +39,17 @@ const CHOICES: {
     icon: Sparkles,
   },
   {
+    id: "semi",
+    title: "Semi-sup. nnU-Net",
+    badge: "Experiment",
+    points: ["163 labels + 800 teacher masks", "Locked-test Dice 0.402", "Weaker than SSL"],
+    icon: Combine,
+  },
+  {
     id: "compare",
     title: "Compare",
     badge: "Side-by-side",
-    points: ["Pick 2 or all 3", "Run sequentially", "Shared report"],
+    points: ["Pick 2 or all 4", "Run sequentially", "Shared report"],
     icon: Layers2,
   },
 ];
@@ -66,7 +73,7 @@ export function ModelSelectSection() {
         </p>
 
         <div
-          className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+          className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5"
           role="radiogroup"
           aria-label="Model selection"
         >
@@ -125,7 +132,7 @@ export function ModelSelectSection() {
               Models to compare
             </label>
             <p className="mb-3 text-center text-xs text-muted-foreground">
-              Choose all three, or any pair. Analyze and the report use this set.
+              Choose all four, or a pair. Analyze and the report use this set.
             </p>
             <select
               id="compare-preset"

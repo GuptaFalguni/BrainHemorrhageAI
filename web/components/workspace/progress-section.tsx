@@ -42,8 +42,8 @@ export function ProgressSection() {
         </h2>
         <p className="mb-8 text-center text-sm text-muted-foreground">
           {mode === "compare"
-            ? "Running your selected models one after another via the live API (nnU-Net and SSL may take several minutes each)."
-            : mode === "ssl" || mode === "nnunet"
+            ? "Running your selected models one after another via the live API (nnU-Net models may take several minutes each)."
+            : mode === "ssl" || mode === "nnunet" || mode === "semi"
               ? "Live progress while the API runs nnU-Net (may take several minutes on CPU)."
               : "Live progress while the API runs real inference on your CT."}
         </p>

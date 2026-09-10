@@ -7,6 +7,8 @@
 #
 # Uses ./checkpoints when present (MONAI + nnU-Net + SSL).
 # If those files are missing, the API entrypoint downloads the v1.1.0 release.
+# Semi-sup. nnU-Net is optional: drop checkpoint_best.pth into
+# checkpoints/nnunet_dataset502_semi/ (not part of v1.1.0).
 
 services:
   api:

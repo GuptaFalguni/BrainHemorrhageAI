@@ -21,7 +21,6 @@ PREDICTIONS_ROOT = API_V1_ROOT / "predictions"
 INDEX_PATH = API_V1_ROOT / "index.json"
 
 # Filenames the API may expose (must already exist on disk).
-# Keep in sync with docs/platform/api_v1_contract.md
 EXPOSED_ARTIFACTS: tuple[str, ...] = (
     "input_ct.nii.gz",
     "overlay.png",

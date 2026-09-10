@@ -1,5 +1,4 @@
-# nnU-Net Phase 0 / Phase 1 configuration (strong-model comparator)
-# See: docs/training/nnunet_phase0.md, docs/training/weak_vs_strong_model_plan.md
+# nnU-Net V1 comparator (Dataset501, fold 0)
 
 dataset_id: 501
 dataset_name: BHSD

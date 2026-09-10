@@ -1,5 +1,4 @@
 # Post-training baseline evaluation configuration
-# See: docs/architecture/evaluation_pipeline.md
 
 checkpoint_path: checkpoints/best_model.pt
 split: test

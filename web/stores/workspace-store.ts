@@ -4,7 +4,7 @@ import { create } from "zustand";
 
 import type { ComparePresetId } from "@/features/workspace/compare-presets";
 
-export type ModelMode = "monai" | "nnunet" | "ssl" | "compare";
+export type ModelMode = "monai" | "nnunet" | "ssl" | "semi" | "compare";
 export type { ComparePresetId };
 
 export type RunPhase =

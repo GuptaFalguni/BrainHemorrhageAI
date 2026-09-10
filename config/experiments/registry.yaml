@@ -1,6 +1,4 @@
-# Experiment Registry — source of truth for trained runs
-# Metrics copied from locked evaluation reports only. Do not invent values.
-# See: docs/HOW_IT_WORKS.md
+# Experiment Registry — locked-test metrics only. Do not invent values.
 
 experiments:
   - experiment_id: experiment_best30h
@@ -19,7 +17,7 @@ experiments:
       best_checkpoint_epoch: 24
       early_stop_epoch: 34
       mean_study_confidence: 0.8107
-      evaluation_report: docs/HOW_IT_WORKS.md
+      evaluation_report: README.md
     publication_status: locked_baseline
 
   - experiment_id: nnunet_dataset501_fold0
@@ -38,7 +36,7 @@ experiments:
       best_ema_after_epoch: 184
       mean_study_confidence: 0.9936
       mean_inference_seconds_cpu: 327.64
-      evaluation_report: docs/HOW_IT_WORKS.md
+      evaluation_report: README.md
     publication_status: locked_comparator
 
   - experiment_id: nnunet_ssl_2fold
@@ -57,8 +55,30 @@ experiments:
       test_macro_dice_note: "2-fold softmax ensemble (use_folds=0,1) on locked n=29. Best single fold remains fold1 epoch 511 = 0.496525."
       fold0_epoch510_locked_test_macro_dice: 0.480201
       fold1_epoch511_locked_test_macro_dice: 0.496525
-      fold1_epoch679_locked_test_macro_dice: 0.441783
       v1_nnunet_fold0_locked_test_macro_dice: 0.454723
       splits_5fold_fingerprint: "4714804f9f1cabd9"
-      evaluation_report: docs/HOW_IT_WORKS.md
+      evaluation_report: README.md
     publication_status: ssl_2fold_research
+
+  - experiment_id: nnunet_dataset502_semi
+    model_type: nnunet_3d_fullres
+    checkpoint_path: checkpoints/nnunet_dataset502_semi/checkpoint_best.pth
+    config_path: config/experiments/nnunet_dataset502_semi.yaml
+    dataset: BHSD_label_163_plus_800_teacher
+    epochs: 438
+    framework: nnunet
+    metrics:
+      test_macro_dice: 0.401539
+      test_macro_dice_note: "Locked-test macro Dice classes 1–5 n=29. Weaker than V1 0.455 and SSL 0.489. IoU and volume error were not scored."
+      test_mean_iou_classes_1_5: null
+      test_volume_error_mean_ml: null
+      best_checkpoint_epoch: 438
+      best_val_ema_pseudo_dice: 0.471114
+      per_class_dice:
+        EDH: 0.108
+        SDH: 0.712
+        SAH: 0.520
+        IPH: 0.395
+        IVH: 0.273
+      evaluation_report: README.md
+    publication_status: labeled_plus_unlabeled_experiment

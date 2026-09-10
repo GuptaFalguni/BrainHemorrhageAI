@@ -180,11 +180,11 @@ export function AnalyzeSection() {
             Select a CT file to enable Analyze.
           </p>
         )}
-        {mode === "nnunet" || mode === "ssl" || mode === "compare" ? (
+        {mode === "nnunet" || mode === "ssl" || mode === "semi" || mode === "compare" ? (
           <p className="max-w-md text-center text-xs text-muted-foreground">
             {mode === "compare"
-              ? "Compare runs your selected models one after another. nnU-Net and SSL can take several minutes each on CPU."
-              : "nnU-Net and SSL nnU-Net run on the real API and can take several minutes on CPU."}{" "}
+              ? "Compare runs your selected models one after another. nnU-Net, SSL, and Semi-sup. can take several minutes each on CPU."
+              : "nnU-Net models run on the real API and can take several minutes on CPU."}{" "}
             Keep this tab open.
           </p>
         ) : null}

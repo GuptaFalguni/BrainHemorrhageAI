@@ -44,16 +44,16 @@ export const LEARN_ACCORDION = [
   {
     id: "model-comparison",
     title: "How to read model comparison",
-    body: `The comparison table places MONAI, nnU-Net, and SSL nnU-Net on the same locked-test metrics. MONAI is the fast interactive demo. nnU-Net fold 0 is the V1 research comparator. SSL nnU-Net is the 2-fold softmax ensemble (Dice 0.489, IoU 0.343). It wins overlap; V1 nnU-Net still has the lower volume error (14.3 vs 18.5 mL mean).`,
+    body: `The table places four models on the same locked-test metrics. MONAI is the fast interactive demo (Dice 0.257). nnU-Net fold 0 is the V1 research comparator (Dice 0.455, best volume error 14.3 mL). SSL nnU-Net is the 2-fold ensemble and the strongest overlap score (Dice 0.489). Semi-sup. nnU-Net retrained on 163 expert labels plus 800 teacher masks and scored 0.402 — weaker than both V1 and SSL. IoU and volume error were not scored for that experiment.`,
   },
   {
     id: "monai-vs-nnunet",
-    title: "MONAI vs nnU-Net vs SSL",
-    body: `MONAI: fastest CPU feedback, lowest locked-test Dice (0.257). nnU-Net fold 0: slower, Dice 0.455, best volume error (14.3 mL). SSL nnU-Net: slowest (about 2× fold 0), ensemble Dice 0.489. Compare runs your chosen 2 or 3 models one after another on the same file.`,
+    title: "MONAI vs nnU-Net vs SSL vs Semi-sup.",
+    body: `MONAI: fastest CPU feedback, lowest locked-test Dice (0.257). nnU-Net fold 0: slower, Dice 0.455, best volume error. SSL nnU-Net: about 2× fold 0, ensemble Dice 0.489. Semi-sup. nnU-Net: labeled + unlabeled retrain, Dice 0.402 — an experiment, not an upgrade. Compare runs your chosen models one after another on the same file.`,
   },
 ] as const;
 
-export type ComparisonWinner = "monai" | "nnunet" | "ssl" | "tie";
+export type ComparisonWinner = "monai" | "nnunet" | "ssl" | "semi" | "tie";
 
 export const COMPARISON_ROWS = [
   {
@@ -62,6 +62,7 @@ export const COMPARISON_ROWS = [
     monai: "0.257",
     nnunet: "0.455",
     ssl: "0.489",
+    semi: "0.402",
     meaning: "Overlap with expert labels on the locked test set",
     tooltip: METRIC_TOOLTIPS.dice,
     winner: "ssl" as ComparisonWinner,
@@ -72,6 +73,7 @@ export const COMPARISON_ROWS = [
     monai: "0.163",
     nnunet: "0.313",
     ssl: "0.343",
+    semi: "—",
     meaning: "Another way to measure region overlap",
     tooltip: METRIC_TOOLTIPS.iou,
     winner: "ssl" as ComparisonWinner,
@@ -82,6 +84,7 @@ export const COMPARISON_ROWS = [
     monai: "19.5 mL mean",
     nnunet: "14.3 mL mean",
     ssl: "18.5 mL mean",
+    semi: "—",
     meaning: "How far predicted volume sits from expert volume",
     tooltip: METRIC_TOOLTIPS.volume_error,
     winner: "nnunet" as ComparisonWinner,
@@ -92,6 +95,7 @@ export const COMPARISON_ROWS = [
     monai: "Study score",
     nnunet: "Study score",
     ssl: "Study score",
+    semi: "Study score",
     meaning: "Model self-certainty on a run (research only)",
     tooltip: METRIC_TOOLTIPS.confidence,
     winner: "tie" as ComparisonWinner,
@@ -102,6 +106,7 @@ export const COMPARISON_ROWS = [
     monai: "~20 s (CPU)",
     nnunet: "~5+ min (CPU)",
     ssl: "~2× nnU-Net",
+    semi: "~5+ min (CPU)",
     meaning: "Typical wait to finish one scan on CPU",
     tooltip: METRIC_TOOLTIPS.inference_time,
     winner: "monai" as ComparisonWinner,
@@ -112,6 +117,7 @@ export const COMPARISON_ROWS = [
     monai: "Compact",
     nnunet: "1 fold",
     ssl: "2 folds",
+    semi: "1 fold",
     meaning: "Relative footprint of weights on disk",
     tooltip: METRIC_TOOLTIPS.model_size,
     winner: "monai" as ComparisonWinner,
@@ -121,7 +127,8 @@ export const COMPARISON_ROWS = [
     metric: "Recommended use",
     monai: "Interactive demos",
     nnunet: "V1 research",
-    ssl: "SSL research",
+    ssl: "Best overlap",
+    semi: "Labeled+unlabeled experiment",
     meaning: "Best fit inside this project",
     tooltip: METRIC_TOOLTIPS.recommended_use,
     winner: "tie" as ComparisonWinner,

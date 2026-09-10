@@ -1,8 +1,6 @@
 # Severity classification rules for the clinical pipeline.
 #
-# Literature gate: severity thresholds MUST remain unset until
-# docs/clinical/severity_literature_review.md is authored and frozen.
-# Do NOT invent numeric cutoffs here.
+# Severity thresholds stay unset. Do not invent numeric cutoffs.
 #
 # Engine contract:
 #   status: not_configured  → SeverityEngine returns status "not_configured"
@@ -10,7 +8,7 @@
 
 version: 1
 status: not_configured
-literature_gate: docs/clinical/severity_literature_review.md
+literature_gate: unset
 disclaimer: >
   Research Software. Not for Clinical Use. Not for diagnosis, triage, or treatment
   decisions. Severity tiers are unavailable until literature-backed thresholds are

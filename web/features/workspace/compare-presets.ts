@@ -2,13 +2,16 @@ export const API_MODEL_IDS = {
   monai: "monai_best30h",
   nnunet: "nnunet_fold0",
   ssl: "nnunet_ssl_2fold",
+  semi: "nnunet_dataset502_semi",
 } as const;
 
 export type ComparePresetId =
   | "all"
   | "monai-nnunet"
   | "monai-ssl"
-  | "nnunet-ssl";
+  | "nnunet-ssl"
+  | "ssl-semi"
+  | "nnunet-semi";
 
 export const COMPARE_PRESETS: {
   id: ComparePresetId;
@@ -17,8 +20,13 @@ export const COMPARE_PRESETS: {
 }[] = [
   {
     id: "all",
-    label: "All 3 models — MONAI, nnU-Net, SSL nnU-Net",
-    modelIds: [API_MODEL_IDS.monai, API_MODEL_IDS.nnunet, API_MODEL_IDS.ssl],
+    label: "All 4 models — MONAI, nnU-Net, SSL, Semi-sup.",
+    modelIds: [
+      API_MODEL_IDS.monai,
+      API_MODEL_IDS.nnunet,
+      API_MODEL_IDS.ssl,
+      API_MODEL_IDS.semi,
+    ],
   },
   {
     id: "monai-nnunet",
@@ -34,6 +42,16 @@ export const COMPARE_PRESETS: {
     id: "nnunet-ssl",
     label: "nnU-Net + SSL nnU-Net",
     modelIds: [API_MODEL_IDS.nnunet, API_MODEL_IDS.ssl],
+  },
+  {
+    id: "ssl-semi",
+    label: "SSL nnU-Net + Semi-sup. nnU-Net",
+    modelIds: [API_MODEL_IDS.ssl, API_MODEL_IDS.semi],
+  },
+  {
+    id: "nnunet-semi",
+    label: "nnU-Net + Semi-sup. nnU-Net",
+    modelIds: [API_MODEL_IDS.nnunet, API_MODEL_IDS.semi],
   },
 ];
 

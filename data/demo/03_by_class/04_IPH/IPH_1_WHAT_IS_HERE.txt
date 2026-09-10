@@ -1,1 +1,0 @@
-Scan: IPH_1.nii.gz

@@ -80,11 +80,13 @@ export function mapPredictToResult(response: PredictResponse): ModelResult {
   const processingSeconds = Number(response.metadata.processing_time_sec ?? 0);
 
   const displayName =
-    response.model_id.includes("ssl")
-      ? "SSL nnU-Net"
-      : response.model_id.includes("nnunet")
-        ? "nnU-Net"
-        : "MONAI";
+    response.model_id.includes("502") || response.model_id.includes("semi")
+      ? "Semi-sup. nnU-Net"
+      : response.model_id.includes("ssl")
+        ? "SSL nnU-Net"
+        : response.model_id.includes("nnunet")
+          ? "nnU-Net"
+          : "MONAI";
 
   return {
     modelId: response.model_id,
@@ -110,5 +112,6 @@ export function modelIdForMode(
   if (mode === "monai") return [API_MODEL_IDS.monai];
   if (mode === "nnunet") return [API_MODEL_IDS.nnunet];
   if (mode === "ssl") return [API_MODEL_IDS.ssl];
+  if (mode === "semi") return [API_MODEL_IDS.semi];
   return modelIdsForPreset(comparePreset);
 }

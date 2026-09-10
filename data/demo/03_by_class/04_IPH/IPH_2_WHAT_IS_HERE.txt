@@ -1,7 +1,0 @@
-Scan: IPH_2.nii.gz
-Original BHSD id: ID_eb39f236_ID_d7edccdb08.nii.gz
-Group: IPH
-Subtypes present: SAH, IPH
-Volumes: SAH 0.53 mL | IPH 51.98 mL
-
-Upload the .nii.gz next to this file.

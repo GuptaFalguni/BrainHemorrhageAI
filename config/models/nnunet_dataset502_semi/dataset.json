@@ -1,0 +1,17 @@
+{
+  "channel_names": {
+    "0": "CT"
+  },
+  "labels": {
+    "background": 0,
+    "EDH": 1,
+    "SDH": 2,
+    "SAH": 3,
+    "IPH": 4,
+    "IVH": 5
+  },
+  "numTraining": 29,
+  "file_ending": ".nii.gz",
+  "name": "BHSD_semi",
+  "description": "NEW run: 163 expert-labeled + teacher pseudo-labels on unlabeled CTs. Not the served nnunet_ssl_2fold 0.489 model."
+}

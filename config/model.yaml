@@ -1,5 +1,4 @@
 # Version 1 baseline — MONAI 2D U-Net (2.5D input, 6-class output)
-# See: docs/architecture/model_design.md
 
 model_name: monai_2d_unet
 spatial_dims: 2

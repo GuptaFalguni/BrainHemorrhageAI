@@ -1,10 +1,10 @@
 """
 Preprocess a single BHSD CT volume and matching segmentation mask.
 
-Implements intensity steps from docs/architecture/windowing_normalization_design.md:
+Intensity steps:
   native HU → clip/window → normalization (when train stats are configured)
 
-Spatial resampling is not applied here (pending resampling_design.md approval).
+Spatial resampling is not applied here.
 Original spacing, shape, and affine are preserved for clinical volume calculation.
 """
 

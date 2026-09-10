@@ -1,1 +1,0 @@
-Scan: four_classes_SDH_SAH_IPH_IVH_3.nii.gz

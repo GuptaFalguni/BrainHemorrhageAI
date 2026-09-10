@@ -13,6 +13,9 @@ SSL_F0="${CHECKPOINT_ROOT}/nnunet_ssl_2fold/fold_0/checkpoint_best.pth"
 SSL_F1="${CHECKPOINT_ROOT}/nnunet_ssl_2fold/fold_1/checkpoint_best.pth"
 SSL_PLANS="${CHECKPOINT_ROOT}/nnunet_ssl_2fold/nnUNetPlans.json"
 SSL_DATASET="${CHECKPOINT_ROOT}/nnunet_ssl_2fold/dataset.json"
+SEMI_DIR="${CHECKPOINT_ROOT}/nnunet_dataset502_semi"
+SEMI_CKPT="${SEMI_DIR}/checkpoint_best.pth"
+SEMI_SIDECARS="${APP_ROOT}/config/models/nnunet_dataset502_semi"
 
 weights_ready() {
   [ -f "${MONAI_CKPT}" ] \
@@ -45,6 +48,20 @@ else
     exit 1
   fi
   echo "[entrypoint] Weights installed."
+fi
+
+mkdir -p "${SEMI_DIR}"
+if [ -d "${SEMI_SIDECARS}" ]; then
+  for name in dataset.json nnUNetPlans.json plans.json; do
+    if [ -f "${SEMI_SIDECARS}/${name}" ] && [ ! -f "${SEMI_DIR}/${name}" ]; then
+      cp "${SEMI_SIDECARS}/${name}" "${SEMI_DIR}/${name}"
+    fi
+  done
+fi
+if [ -f "${SEMI_CKPT}" ]; then
+  echo "[entrypoint] Semi-sup. nnU-Net weights present (optional fourth model)."
+else
+  echo "[entrypoint] Semi-sup. nnU-Net weights missing — place checkpoint_best.pth in checkpoints/nnunet_dataset502_semi/ to enable that option."
 fi
 
 mkdir -p "${APP_ROOT}/reports/api_v1/predictions"

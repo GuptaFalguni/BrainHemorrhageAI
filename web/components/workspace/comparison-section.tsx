@@ -10,6 +10,7 @@ const WINNER_LABEL: Record<ComparisonWinner, string> = {
   monai: "MONAI",
   nnunet: "nnU-Net",
   ssl: "SSL nnU-Net",
+  semi: "Semi-sup. nnU-Net",
   tie: "—",
 };
 
@@ -21,8 +22,7 @@ export function ComparisonSection() {
           Model Comparison
         </h2>
         <p className="mb-8 text-center text-sm text-muted-foreground">
-          Locked-test context for MONAI, nnU-Net, and SSL nnU-Net — explained in
-          plain language.
+          Locked-test context for all four models — explained in plain language.
         </p>
 
         <motion.div
@@ -32,13 +32,14 @@ export function ComparisonSection() {
           className="glass-strong overflow-hidden rounded-3xl"
         >
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[760px] text-left text-sm">
+            <table className="w-full min-w-[960px] text-left text-sm">
               <thead>
                 <tr className="border-b border-border/60 bg-surface-muted/40">
                   <th className="px-4 py-4 font-medium">Metric</th>
                   <th className="px-4 py-4 font-medium">MONAI</th>
                   <th className="px-4 py-4 font-medium">nnU-Net</th>
                   <th className="px-4 py-4 font-medium">SSL nnU-Net</th>
+                  <th className="px-4 py-4 font-medium">Semi-sup. nnU-Net</th>
                   <th className="px-4 py-4 font-medium">Meaning</th>
                   <th className="px-4 py-4 font-medium">Winner</th>
                 </tr>
@@ -79,6 +80,14 @@ export function ComparisonSection() {
                     >
                       {row.ssl}
                     </td>
+                    <td
+                      className={cn(
+                        "px-4 py-4 font-mono text-xs sm:text-sm",
+                        row.winner === "semi" && "text-primary",
+                      )}
+                    >
+                      {row.semi}
+                    </td>
                     <td className="max-w-[220px] px-4 py-4 text-muted-foreground">
                       {row.meaning}
                     </td>
@@ -100,11 +109,12 @@ export function ComparisonSection() {
             </table>
           </div>
           <p className="border-t border-border/40 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
-            SSL numbers are the 2-fold softmax ensemble on the locked 29-case
-            test set (Dice 0.489 · IoU 0.343 · volume error 18.5 mL mean / 4.5
-            mL median). Best single fold remains 0.4965 and is not what the UI
-            serves. Lower volume error wins — that is still V1 nnU-Net. Live
-            Compare runs only the models you pick in the dropdown.
+            SSL is the 2-fold softmax ensemble on the locked 29-case test (Dice
+            0.489 · IoU 0.343 · volume error 18.5 mL mean). Semi-sup. nnU-Net is
+            a later labeled + unlabeled retrain (163 expert masks + 800 teacher
+            masks) at Dice 0.402 — weaker than V1 0.455 and SSL 0.489. IoU and
+            volume error were not scored for that run. Lower volume error still
+            belongs to V1 nnU-Net. Live Compare runs only the models you pick.
           </p>
         </motion.div>
       </div>

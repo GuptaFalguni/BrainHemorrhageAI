@@ -67,9 +67,22 @@ class NnUNetBackend(InferenceBackend):
     def framework(self) -> str:
         return "nnunet"
 
+    def _ensure_sidecars(self) -> None:
+        """Copy dataset/plans JSON from config/models/<model_id> when missing."""
+        src = PROJECT_ROOT / "config" / "models" / self._model_id
+        if not src.is_dir():
+            return
+        self._checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        for name in ("dataset.json", "nnUNetPlans.json", "plans.json"):
+            candidate = src / name
+            target = self._checkpoint_dir / name
+            if candidate.is_file() and not target.is_file():
+                shutil.copy2(candidate, target)
+
     def load_model(self) -> None:
         if self._loaded and self._model_dir is not None:
             return
+        self._ensure_sidecars()
         os.environ.setdefault("nnUNet_raw", str(PROJECT_ROOT / "data" / "nnunet" / "nnUNet_raw"))
         os.environ.setdefault(
             "nnUNet_preprocessed",
