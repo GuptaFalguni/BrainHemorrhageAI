@@ -5,10 +5,10 @@
 #   docker compose up --build
 #   Open http://localhost:3000
 #
-# Uses ./checkpoints when present (MONAI + nnU-Net + SSL).
-# If those files are missing, the API entrypoint downloads the v1.1.0 release.
-# SSL (semi-supervised) nnU-Net is optional: drop checkpoint_best.pth into
-# checkpoints/nnunet_dataset502_semi/ (not part of v1.1.0).
+# Uses ./checkpoints when present (all four models).
+# If files are missing, the API entrypoint downloads:
+#   v1.1.0 — MONAI + nnU-Net + nnU-Net Ensemble
+#   v1.2.0 — SSL (Dataset502)
 
 services:
   api:
@@ -19,6 +19,7 @@ services:
       - "8000:8000"
     environment:
       WEIGHTS_URL: ${WEIGHTS_URL:-https://github.com/GuptaFalguni/BrainHemorrhageAI/releases/download/v1.1.0/model-weights-v1.1.0.tar.gz}
+      SSL_WEIGHTS_URL: ${SSL_WEIGHTS_URL:-https://github.com/GuptaFalguni/BrainHemorrhageAI/releases/download/v1.2.0/model-weights-ssl-dataset502.tar.gz}
     # nnU-Net preprocess workers share tensors via /dev/shm. Docker default is 64 MB
     # and crashes with "Background workers died" / "No space left on device".
     shm_size: "2gb"

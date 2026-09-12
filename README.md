@@ -9,8 +9,7 @@ This `product_final` branch is the public demo: a website, four trained models, 
 ## What you need
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) running
-- About **1 GB** download the first time (MONAI + nnU-Net + nnU-Net Ensemble)
-- Optional: SSL (semi-supervised) weights (`checkpoint_best.pth`)
+- About **1.4 GB** download the first time (MONAI + nnU-Net + nnU-Net Ensemble + SSL)
 - A modern browser
 
 ## Run it
@@ -29,13 +28,7 @@ Upload a sample from this repo:
 
 Start with **MONAI** (~20 seconds). The three nnU-Net options take several minutes on a CPU.
 
-First start downloads MONAI, V1 nnU-Net, and nnU-Net Ensemble weights from GitHub Release `v1.1.0` if `checkpoints/` is empty. Later starts reuse that folder.
-
-To enable **SSL**, place `checkpoint_best.pth` in:
-
-`checkpoints/nnunet_dataset502_semi/`
-
-Plans and `dataset.json` are already in `config/models/nnunet_dataset502_semi/` and are copied next to the checkpoint automatically. That file is not in the v1.1.0 tarball.
+First start downloads all four model weights if `checkpoints/` is empty (GitHub Releases `v1.1.0` and `v1.2.0`). Later starts reuse that folder. No extra files to copy.
 
 ## What the demo shows
 

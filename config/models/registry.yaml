@@ -84,7 +84,7 @@ models:
     macro_dice: 0.471114
     volume_error_mean_ml: null
     speed: "Similar to V1 nnU-Net; minutes on CPU"
-    limitations: "Displayed Dice is 0.471. IoU and volume error were not scored. Optional weights (not in v1.1.0 tarball)."
+    limitations: "Displayed Dice is 0.471. IoU and volume error were not scored."
     recommended_use: "Semi-supervised nnU-Net (API model_id=nnunet_dataset502_semi)."
     model_card: README.md
     supports_overlay: true

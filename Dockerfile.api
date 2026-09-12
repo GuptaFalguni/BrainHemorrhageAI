@@ -5,7 +5,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     APP_ROOT=/app \
     PYTHONPATH=/app/src \
-    WEIGHTS_URL=https://github.com/GuptaFalguni/BrainHemorrhageAI/releases/download/v1.1.0/model-weights-v1.1.0.tar.gz
+    WEIGHTS_URL=https://github.com/GuptaFalguni/BrainHemorrhageAI/releases/download/v1.1.0/model-weights-v1.1.0.tar.gz \
+    SSL_WEIGHTS_URL=https://github.com/GuptaFalguni/BrainHemorrhageAI/releases/download/v1.2.0/model-weights-ssl-dataset502.tar.gz
 
 WORKDIR /app
 
